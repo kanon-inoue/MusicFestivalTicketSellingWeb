@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>  
+    <meta charset="utf-8"> 
+    <meta name="description" content="Music Event App">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" 
+         integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+    <link href="css/eventDetail.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+
+    <title>Music Event Details</title>
+</head>
+
+<body>
+    <div class = "text-center">
+        <nav class = "border-bottom navbar"> <!-- top bar menu-->
+           <div class = "container-fluid align-items-center">
+  
+           <!-- icon menu -->
+              <div>
+                 <button class="navbar-toggler" 
+                    type="button" 
+                    data-bs-toggle="collapse" 
+                    data-bs-target="#navbarToggle" 
+                    aria-controls="navbarToggle" 
+                    aria-expanded="false" 
+                    aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                 </button>
+              </div>
+              
+              <!-- Logo -->
+              <div class = "LOGO">
+                 <a class = "navbar-brand" 
+                 href="file:///Users/kanon/Desktop/QUT/Sem2_2022/IAB207/n11186267_Inoue/index.html">
+                 KANONTicket</a>
+              </div>
+              
+              <div class="collapse navbar-collapse" id="navbarToggle">
+                 <ul class = "navbar-nav text-small show">
+                    <!-- navigation menus -->
+                    <li class="nav-item">
+                       <a class="dropdown-item" 
+                          aria-current="page" 
+                          href = "file:///Users/kanon/Desktop/QUT/Sem2_2022/IAB207/n11186267_Inoue/index.html">Home</a>
+                    </li>
+                    <li>
+                       <a class="dropdown-item" 
+                          aria-current="page" 
+                          href = "file:///Users/kanon/Desktop/QUT/Sem2_2022/IAB207/n11186267_Inoue/eventCreation.html">
+                          Event Creation</a>
+                    </li>
+                    <li>
+                       <a class="dropdown-item" 
+                          aria-current="page" 
+                          href = "file:///Users/kanon/Desktop/QUT/Sem2_2022/IAB207/n11186267_Inoue/bookingHistory.html">
+                          Booking History</a>
+                    </li>
+                 </ul>
+              </div>
+           </div>
+        </nav>
+    </div>
+
+    <main>
+        <section>
+            <div class = "event-detail"> <!-- middle igame and search sections-->
+                <div class = "eventList-heading text-center">
+                    <h1>Event Details</h1>
+                </div>
+                <div class = "event-img text-center">
+                    <img src = "images/event1.jpg" 
+                         class = "eventImage ratio ratio-21x9 rounded w-75"
+                         alt = "Event 1 Image">
+                </div>
+            </div>
+
+            <article class = "detail-container">
+                <div class = "detail-text">
+                    <h3>Mid-Semester Break Bowl</h3>
+                    <dl class = "row">
+                        <dt class="col-sm-3">Date</dt>
+                        <dd class="col-sm-9">September 29th, 2022</dd>
+                        
+                        <dt class="col-sm-3">Place</dt>
+                        <dd class="col-sm-9">Brisbane, Queensland, Australia</dd>
+
+                        <dt class="col-sm-3">Time</dt>
+                        <dd class="col-sm-9">7pm - 11pm</dd>
+
+                        <dt class="col-sm-3">Price</dt>
+                        <dd class="col-sm-9">AU$80</dd>
+
+                        <dt class="col-sm-3">Description</dt>
+                        <dd class="col-sm-9">
+                        This is a music event for any student who is on mid-semester break!!
+                        You can see people from UQ, QUT, Griffith, and ACU!!
+                        Anyone is welcome! Looking forward seeing you there!! 
+                        </dd>
+                    </dl>
+                </div>
+
+                <div class = "modal-button">
+                    <button type="button" class="btn btn-outline-secondary col-3" 
+                        data-bs-toggle="modal" data-bs-target="#bookingModal">BOOK</button>
+                </div>
+            </article>
+                
+            <!-- Modal -->
+            <div class="modal fade modal-section" 
+                    id="bookingModal" data-bs-backdrop="static" data-bs-keyboard="false"
+                    tabindex="-1" aria-labelledby="bookingModalLabel" 
+                    aria-hidden="true">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                        <div class = "modal-container">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="bookingModalLabel">Ticket Booking</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+
+                            <div class="modal-body">
+                                <p>Input your informaion and number of tickets you buy.</p>
+                                <!-- name -->
+                                <div class="input-group">
+                                    <span class="input-group-text">First and last name:</span>
+                                    <input type="text" aria-label="First name" class="form-control">
+                                    <input type="text" aria-label="Last name" class="form-control">
+                                </div>  
+                                <!-- phone number -->
+                                <div class = "input-group">
+                                    <span class="input-group-text">Phone number:</span>
+                                    <input type="text" aria-label="phone num" class="form-control">
+                                </div>
+                                <!-- email -->
+                                <div class="input-group mb-3">
+                                    <input type="text" class="form-control" placeholder="Email" aria-label="Email">
+                                    <span class="input-group-text">@</span>
+                                    <input type="text" class="form-control" placeholder="Server" aria-label="Server">
+                                </div> 
+                                <!-- ticket number -->
+                                <div class="input-group">
+                                    <input placeholder="Number of Ticket(s)" 
+                                    class = "form-control" aria-label = "ticketNum"
+                                    required type="number" value="" min="1" max="30">
+                                </div>
+                                <!-- agree -->
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="consent-checking">
+                                    <label class="form-check-label" for="consent-checking">
+                                        I agree with the privacy policy.
+                                    </label>
+                                </div>
+                            </div>
+                                <div class="modal-footer">
+                                <a href="file:///Users/kanon/Desktop/QUT/Sem2_2022/IAB207/n11186267_Inoue/bookingHistory.html"
+                                    role="button" class="btn btn-outline-success" tabindex="-1" aria-disabled="true">
+                                    Booking</a>
+                                <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal">Cancel</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <section>
+                <div class = "adding-comment-section">
+                    <div class="card">
+                        <div class="card-body p-4">
+                            <div class="d-flex flex-start align-items-center">
+                                <img class = "avatar-user rounded-circle shadow-1-strong me-3 flex-shrink-0"
+                                        src = "images/user1.jpg" alt = "User1's Icon Image">
+
+                                <label class = "flex-grow-1"
+                                        for = "addingComment">Add your comment</label>
+                            </div>
+                            <form>
+                                <div class="form-group">
+                                    <textarea class="form-control adding-comment" 
+                                            id="addingComment" 
+                                            rows="3">
+                                    </textarea>
+                                </div>
+                            </form>
+                            <div class = "text-end">
+                                <button class = "btn btn-outline-danger">Submit</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+                
+            <section>
+                <div class = "comment-section">
+                    <h3 class = "container-fluid text-start">Comments</h3>
+                    <div class = "card">
+                        <div class ="card-body p-4">
+                            <div class = "d-flex flex-start w-100 align-items-center">
+                                <img class = "avatar rounded-circle shadow-1-strong me-3 flex-shrink-0"
+                                        src = "images/user2.jpg" 
+                                        alt = "User2's Icon Image">
+                                <h6 class = "card-title col flex-grow-1">@abc123</h6>
+                            </div>
+                            <p class = "card-text">
+                                    I've been to their event once before and I could not park there.
+                                    It is possible to park at the venue this time? Thank you!
+                            </p>
+                            <time class="card-subtitle mb-2 text-muted">9:13 am</time>
+                            <div class = "text-end">
+                                <button class = "btn btn-outline-primary">Reply</button>
+                                <button class = "btn btn-outline-danger">Like</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class = "card">
+                        <div class ="card-body p-4">
+                            <div class = "d-flex flex-start w-100 align-items-center">
+                                <img class = "avatar rounded-circle shadow-1-strong me-3 flex-shrink-0"
+                                        src = "images/user3.jpg" 
+                                        alt = "User3's Icon Image">
+                                <h6 class = "card-title col flex-grow-1">@def456</h6>
+                            </div>
+                            <p class = "card-text">
+                                    Does anyone know if I cancell mt ticket,
+                                    they refound the ticket fee?
+                            </p>
+                            <time class="card-subtitle mb-2 text-muted">9:13 am</time>
+                            <div class = "text-end">
+                                <button class = "btn btn-outline-primary">Reply</button>
+                                <button class = "btn btn-outline-danger">Like</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </section>
+    </main>
+
+    <!-- Footer of the website -->
+    <footer class = "container">
+        <div class = "text-end">
+            <p>Copyright &copy; 2022</p>
+        </div>
+    </footer>
+
+</body>
+
+</html>

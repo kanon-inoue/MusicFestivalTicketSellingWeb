@@ -1,0 +1,29 @@
+main {
+    margin: 1rem 0rem;
+}
+
+section {
+    margin: 2rem 0rem;
+}
+
+.card-title {
+    margin-top: 0.5rem;
+}
+
+.details {
+    margin-top: 1.5rem;
+    margin-left: 0.5rem;
+}
+
+.user-info {
+    margin-top: 1.5rem;
+    margin-left: 2rem;
+}
+
+.account-info-title {
+    margin-top: 1rem;
+}
+
+.title {
+    margin-top: 1rem;
+}

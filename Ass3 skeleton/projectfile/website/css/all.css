@@ -1,45 +1,8 @@
- /* booking history */
-
-main {
-    margin: 1rem 0rem;
-}
-
-section {
-    margin: 2rem 0rem;
-}
-
-.card-title {
-    margin-top: 0.5rem;
-}
-
-.details {
-    margin-top: 1.5rem;
-    margin-left: 0.5rem;
-}
-
-.user-info {
-    margin-top: 1.5rem;
-    margin-left: 2rem;
-}
-
-.account-info-title {
-    margin-top: 1rem;
-}
-
-.title {
-    margin-top: 1rem;
-}
-
-
  /* event creation */
- main {
+ main1 {
     display: flex;
     flex-direction: column;
     align-items: center;
-}
-
-article{
-    margin: 1rem 0rem;
 }
 
 .event-list-heading{
@@ -57,7 +20,7 @@ article{
     min-width: 20rem;
 }
 
-.text-end {
+.text-end1 {
     margin-top: 1rem;
 }
 
@@ -72,18 +35,18 @@ article{
 
 /* event detail */
 
-main {
+.main2 {
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 
-main > section {
+.main2 > section {
     width: 70%;
 }
 
 @media screen and (max-width: 992px) {
-    main > section {
+    .main2 > section {
         width: 100%;
     }
 }
@@ -111,7 +74,7 @@ main > section {
     margin: 2rem 2rem;
 }
 
-.card-text {
+.card-text2 {
     margin-top: 1rem;
 }
 
@@ -127,11 +90,11 @@ main > section {
     object-fit: cover;
 }
 
-.card {
+.card2 {
     margin: 1rem;
 }
 
-.card-body {
+.card-body2 {
     margin-top: 1rem;
 }
 
@@ -139,7 +102,7 @@ main > section {
     margin-top: 0.5rem;
 }
 
-.text-end {
+.text-end2 {
     margin-top: 0.5rem;
 }
 
@@ -156,8 +119,8 @@ main > section {
     margin: 1rem 0rem;
 }
 
-/* homeLanding */
 
+/* homeLanding */
 
 .item-bar{
     justify-content: space-between;
@@ -205,44 +168,44 @@ main > section {
     margin-top: 3rem;
 }
 
-.card img {
+.card3 img {
     object-fit: cover;
     height: 15rem;
     position: relative;
 }
 
 @media screen and (max-width: 992px) {
-    .card img {
+    .card3 img {
         object-fit: cover;
         height: 10rem;
         position: relative;
     }
 }
 
-.card span {
+.card3 span {
     position: absolute;
     margin-top: 1rem;
     margin-left: 1rem;
 }
 
 @media screen and (max-width: 992px) {
-    .card span {
+    .card3 span {
         position: absolute;
         margin-top: 1rem;
         margin-left: 1rem;
     }
 }
 
-.card-body {
+.card-body3 {
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
 
-.card-body h5 {
+.card-body3 h5 {
     margin: 1rem 0rem;
 }
 
-.event-list {
+.event-list3 {
     margin: 2rem 0rem;
 }

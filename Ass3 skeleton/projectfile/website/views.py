@@ -1,17 +1,20 @@
 from flask import Blueprint
-from flask import render_template, request, redirect, send_from_directory
+from flask import render_template, request, redirect, redirect,url_for, send_from_directory
+from .models import Events
 
-bp = Blueprint('main', __name__)
+viewsbp = Blueprint('main', __name__)
 
-
-@bp.route('/', methods=['GET', 'POST'])
+@viewsbp.route('/', methods=['GET', 'POST'])
 def index():
-    return render_template('index.html')
+    events_data = Events.query.all()
+    return render_template('index.html', events_data=events_data)
 
-@bp.route('/eventCreation', methods=['GET', 'POST'])
-def index():
-    return render_template('eventCreation.html')
-
-@bp.route('/eventDetail', methods=['GET', 'POST'])
-def index():
-    return render_template('eventDetail.html')
+@viewsbp.route('/search')
+def search():
+    if request.args['search']:
+        print(request.args['search'])
+        dest = "%" + request.args['search'] + '%'
+        destinations = Events.query.filter(Events.description.like(dest)).all()
+        return render_template('index.html', destinations=destinations)
+    else:
+        return redirect(url_for('main.index'))

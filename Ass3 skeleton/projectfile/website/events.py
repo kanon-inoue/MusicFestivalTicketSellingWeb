@@ -1,5 +1,3 @@
-""" 
-this is a test comment
 from datetime import datetime
 from flask import Blueprint, render_template, request, redirect, url_for, flash, current_app
 from flask_login.utils import login_required
@@ -227,4 +225,3 @@ def check_tickets(form, event):
             event.event_status = EventStatus.BOOKED
             return True
     return True
- """

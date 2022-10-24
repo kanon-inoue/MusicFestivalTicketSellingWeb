@@ -13,8 +13,8 @@ def index():
 def search():
     if request.args['search']:
         print(request.args['search'])
-        dest = "%" + request.args['search'] + '%'
-        destinations = Events.query.filter(Events.description.like(dest)).all()
-        return render_template('index.html', destinations=destinations)
+        event = "%" + request.args['search'] + '%'
+        events_data = Events.query.filter(Events.description.like(event)).all()
+        return render_template('index.html', events_data=events_data)
     else:
         return redirect(url_for('main.index'))

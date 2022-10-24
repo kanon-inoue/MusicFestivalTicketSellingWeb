@@ -46,7 +46,7 @@ class Comments(db.Model):
 
 
 
-class events(db.Model):
+class Events(db.Model):
     __tablename__ = 'events'
     id = db.Column(db.Integer, primary_key=True)
     text = db.Column(db.String(400))

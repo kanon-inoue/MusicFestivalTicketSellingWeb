@@ -1,7 +1,7 @@
 from datetime import datetime
 from flask import Blueprint, render_template, request, redirect, url_for, flash, current_app
 from flask_login.utils import login_required
-from .models import Event, Comment, EventCity, EventGenre, EventStatus, Booking
+from .models import Event, Comment, EventCity, EventGenre, EventStatus, Booking # add state and date
 from .forms import EditEventForm, EventForm, CommentForm, BookingForm
 from . import db
 import os
@@ -29,12 +29,12 @@ def view_all_events():
     return render_template('events/view_events.html', heading='All Events', events=events)
 
 
-@eventbp.route('/view_all/city/<city_name>')
-def view_events_city(city_name):
-    city_name = city_name.upper()
-    city_events = Event.query.filter_by(event_city=city_name).filter(
+@eventbp.route('/view_all/city/<state_name>')
+def view_events_state(state_name):
+    state_name = state_name.upper()
+    event_state_list = Event.query.filter_by(event_state=state_name).filter(
         Event.event_status != 'INACTIVE').all()
-    return render_template('events/view_events.html', heading=city_name, events=city_events)
+    return render_template('events/view_events.html', heading=state_name, events=event_state_list)
 
 
 @eventbp.route('/view_all/<genre>')
@@ -45,13 +45,12 @@ def view_events(genre):
     return render_template('events/view_events.html', heading=genre, events=genre_events_list)
 
 
-@eventbp.route('/view_all/artist/<headliner>')
-def view_events_artist(headliner):
-    artist_events = Event.query.filter_by(headliner=headliner).filter(
+@eventbp.route('/view_all/<date>')
+def view_events(date):
+    date = date.upper()
+    event_dates_list = Event.query.filter_by(event_date=date).filter(
         Event.event_status != 'INACTIVE').all()
-    if len(artist_events) == 1:
-        return redirect(url_for('events.show', id=artist_events[0].id))
-    return render_template('events/view_events.html', heading=headliner, events=artist_events)
+    return render_template('events/view_events.html', heading=date, events=event_dates_list)
 
 
 @eventbp.route('/create', methods=['GET', 'POST'])

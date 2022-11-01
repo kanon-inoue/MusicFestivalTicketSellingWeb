@@ -61,5 +61,6 @@ def login():
 @authbp.route('/logout')
 @login_required
 def logout():
+    #logout user
     logout_user()
     return 'You have been logged out'

@@ -28,7 +28,7 @@
 {{wtf.render_form(form)}}
 </div>
 
-<!-- When you have login form, then do show the user a link to register -->
+<!-- When you have login form,  then do show the user a link to register -->
 {% if heading|lower =='login' %}
 <div class="col-md-4 mb-5 ml-5">
     <p>New user? <a href="{{ url_for('auth.register') }}">Click here to register</a>.</p>

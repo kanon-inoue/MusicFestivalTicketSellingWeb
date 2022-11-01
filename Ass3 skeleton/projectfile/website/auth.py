@@ -3,7 +3,7 @@ from .forms import LoginForm, RegisterForm
 #new imports:
 from flask_login import login_user, login_required, logout_user
 from werkzeug.security import generate_password_hash,check_password_hash
-from .models import User
+from .models import Users
 from . import db
 
 #create a blueprint
@@ -19,14 +19,14 @@ def register():
             pwd = register.password.data
             email=register.email_id.data
             #check if a user exists
-            u1 = User.query.filter_by(name=uname).first()
+            u1 = Users.query.filter_by(name=uname).first()
             if u1:
                 flash('User name already exists, please login')
                 return redirect(url_for('auth.login'))
             # don't store the password - create password hash
             pwd_hash = generate_password_hash(pwd)
             #create a new user model object
-            new_user = User(name=uname, password_hash=pwd_hash, emailid=email)
+            new_user = Users(name=uname, password_hash=pwd_hash, emailid=email)
             db.session.add(new_user)
             db.session.commit()
             #commit to the database and redirect to HTML page
@@ -43,7 +43,7 @@ def login():
         #get the username and password from the database
         user_name = login_form.user_name.data
         password = login_form.password.data
-        u1 = User.query.filter_by(name=user_name).first()
+        u1 = Users.query.filter_by(name=user_name).first()
         #if there is no user with that name
         if u1 is None:
             error='Incorrect user name'

@@ -9,7 +9,7 @@ from . import db
 #create a blueprint
 authbp = Blueprint('auth', __name__ )
 
-@bp.route('/register', methods=['GET', 'POST'])
+@authbp.route('/register', methods=['GET', 'POST'])
 def register():
     register = RegisterForm()
     #the validation of form submis is fine
@@ -35,7 +35,7 @@ def register():
     else:
         return render_template('user.html', form=register, heading='Register')
 
-@bp.route('/login', methods=['GET', 'POST'])
+@authbp.route('/login', methods=['GET', 'POST'])
 def login():
     login_form = LoginForm()
     error=None
@@ -58,7 +58,7 @@ def login():
             flash(error)
     return render_template('user.html', form=login_form, heading='Login')
 
-@bp.route('/logout')
+@authbp.route('/logout')
 @login_required
 def logout():
     logout_user()

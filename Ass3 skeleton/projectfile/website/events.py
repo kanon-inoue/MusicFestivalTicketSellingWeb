@@ -8,7 +8,7 @@ from werkzeug.utils import secure_filename
 from flask_login import current_user
 from datetime import datetime
 
-eventbp = Blueprint('event', __name__, url_prefix='/event')
+eventbp = Blueprint('events', __name__, url_prefix='/events')
 
 
 @eventbp.route('/<id>')

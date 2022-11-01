@@ -87,9 +87,9 @@ class Events(db.Model):
 
     # ... Create the Comments db.relationship
     # relation to call event.comments and comment.event
-    comments = db.relationship('Comment', backref='event')
-    users = db.relationship('User', backref='event')
-    booking = db.relationship('Booking', backref='event', viewonly=True)
+    comments = db.relationship('Comment', backref='events')
+    users = db.relationship('User', backref='events')
+    booking = db.relationship('Booking', backref='events', viewonly=True)
 
     #add the foreign keys
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'))

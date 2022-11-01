@@ -1,10 +1,11 @@
+# Imports to access functions and add-ons
 from website.models import MusicGenre, EventState, EventStatus
 from flask_wtf import FlaskForm
 from wtforms.fields import TextAreaField, SubmitField, StringField, PasswordField, BooleanField, DecimalField, SelectField, IntegerField, DateTimeLocalField
 from wtforms.validators import InputRequired, Length, Email, EqualTo, NumberRange, Regexp, ValidationError
-#from wtforms_validators import Alpha
 from flask_wtf.file import FileRequired, FileField, FileAllowed
 
+# Allowed image file types
 ALLOWED_FILE = {'PNG', 'JPG', 'JPEG', 'jpeg', 'png', 'jpg'}
 
 # Unlike the built-in Length validator, this will remove whitespace when counting length
@@ -45,7 +46,8 @@ class RegisterForm(FlaskForm):
     # submit button
     submit = SubmitField("Register")
 
-# Event
+
+# Event creation, allows the user to input details and create events to appear on the main page
 class EventForm(FlaskForm):
     title = StringField('Event Title', validators=[
                         InputRequired(message='Your event must have a title'), Length(min=3, max=50, 
@@ -70,13 +72,13 @@ class EventForm(FlaskForm):
                              e.name.title() for e in EventState], validators=[InputRequired(message='Your event must have a state it is located in')])
     submit = SubmitField('Create Event')
 
-# Comment
+# Commenting, allows user to write comments to add and appear on the event pages
 class CommentForm(FlaskForm):
     text = TextAreaField('Leave a Comment:', validators=[
                          InputRequired(message="Your comment can't be blank"), check_field_length])
     submit = SubmitField('Submit')
 
-# Booking
+# Booking, allows user to book and obtain a ticket for specific events
 class BookingForm(FlaskForm):
     tickets_required = IntegerField(
         'How many tickets would you like to book?', default='1', validators=[InputRequired()])

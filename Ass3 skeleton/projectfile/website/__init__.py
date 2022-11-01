@@ -1,44 +1,79 @@
+#import flask - from the package import class
 from flask import Flask, render_template
 from flask_bootstrap import Bootstrap
 from flask_sqlalchemy import SQLAlchemy
-from flask_login import LoginManager
+from flask_login import LoginManager, current_user
+from datetime import datetime
+from werkzeug.exceptions import HTTPException
 
-db=SQLAlchemy()
-app=Flask(__name__)
+db = SQLAlchemy()
+#app = Flask(__name__) # this is the name of the module/package that is calling this app
 
+#create a function that creates a web application
+# a web server will run this web application
 def create_app():
-    
+    # this is the name of the module/package that is calling this app
+    app = Flask(__name__)
     #we use this utility module to display forms quickly
     bootstrap = Bootstrap(app)
-
-    #A secret key for the session object
-    app.secret_key='somerandomvalue'
-
-    #Configue and initialise DB
-    app.config['SQLALCHEMY_DATABASE_URI']='sqlite:///travel123.sqlite'
+    # a secret key for the session object
+    app.secret_key = 'abcde'
+    # configue and initialise DB
+    app.config['SQLALCHEMY_DATABASE_URI']='sqlite:///musictickets.sqlite'
+    app.config['UPLOAD_FOLDER'] = 'static/images/'
+    #initialize db with flask app
     db.init_app(app)
     
     #initialize the login manager
     login_manager = LoginManager()
+    from .models import Users, Anonymous  # importing here to avoid circular references
+    login_manager.anonymous_user = Anonymous
+    login_manager.login_message_category = "warning"
+    #set the name of the login function that lets user login
+    # in our case it is auth.login (blueprintname.viewfunction name)
     login_manager.login_view='auth.login'
     login_manager.init_app(app)
-
+     
+    # add blueprints
+    # importing views module here to avoid circular references a commonly used practice.
+    from . import views, events, auth
+    app.register_blueprint(views.mainbp)
+    app.register_blueprint(events.eventbp)
+    app.register_blueprint(auth.authbp)
+    
     #create a user loader function takes userid and returns User
-    from .models import User  # importing here to avoid circular references
     @login_manager.user_loader
     def load_user(user_id):
-        return User.query.get(int(user_id))
+        return Users.query.get(int(user_id))
 
-    #add Blueprints
-    from . import views
-    app.register_blueprint(views.mainbp)
-    from . import auth
-    app.register_blueprint(auth.bp)
+    @app.context_processor
+    def get_context():
+        # Checks if the current user is Anonymous or logged in
+        if current_user.name == 'Guest':
+            name = 'Guest'
+        else:
+            name = current_user.name
+        from website.models import Events, EventState, MusicGenre, EventStatus
+        all_events = Events.query.all()
+        # On launch, check if there are any events that are now in the past
+        # and if so, change them to Inactive
+        for event in all_events:
+            if event.date < datetime.now():
+                event.event_status=EventStatus.INACTIVE
+        current_events = Events.query.filter(Events.event_status!='INACTIVE')
+        db.session.commit()
+        dropdown_events = Events.query.group_by(Events.headliner).filter(
+        Events.event_status != 'INACTIVE').all()
+        genres = MusicGenre
+        states = EventState
+        return(dict(events_list=all_events, artist_list=dropdown_events,
+                    genres=genres, states=states,
+                    username=name, current_events=current_events))
+
+    @app.errorhandler(404)
+    # inbuilt function which takes error as parameter
+    def not_found(e):  # error view function
+        return render_template('404.html'), 404
+
 
     return app
-
-@app.errorhandler(404) 
-# inbuilt function which takes error as parameter 
-def not_found(e): 
-  return render_template("404.html")
-

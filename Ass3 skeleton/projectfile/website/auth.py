@@ -7,7 +7,7 @@ from .models import User
 from . import db
 
 #create a blueprint
-bp = Blueprint('auth', __name__ )
+authbp = Blueprint('auth', __name__ )
 
 @bp.route('/register', methods=['GET', 'POST'])
 def register():

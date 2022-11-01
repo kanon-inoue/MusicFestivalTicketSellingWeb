@@ -33,7 +33,7 @@ class EventState(Enum):
     ADELAIDE = 5
 
 
-class User(db.Model, UserMixin):
+class Users(db.Model, UserMixin):
     __tablename__='users' 
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(100), index=True, unique=True, nullable=False)

@@ -18,14 +18,14 @@ class User(db.Model, UserMixin):
 class Tickets(db.Model):
     __tablename__ = 'Tickets'
     id = db.Column(db.Integer, primary_key=True)
-    user_id = db.column(db.Integer, foreign_key=True)
-    user_name = db.Column(db.String(80))
-    description = db.Column(db.String(200))
-    currency = db.Column(db.String(3))
+    user_id = db.column(db.Integer, foreign_key=True) # use db.ForeignKey instead look at how its done in comments
+    user_name = db.Column(db.String(80)) # Shouldnt need as the user_id should link it to the user table
+    description = db.Column(db.String(200)) # Don't need either
+    currency = db.Column(db.String(3)) # Dont need
     # ... Create the Comments db.relationship
 	# relation to call destination.comments and comment.destination
-    comments = db.relationship('Comment', backref='destination')
-
+    comments = db.relationship('Comment', backref='destination') #Remove tickets dont need comments
+    # Need to add event id to link it to the event!
     
 	
     def __repr__(self): #string print method
@@ -55,5 +55,7 @@ class Events(db.Model):
     #add the foreign keys
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
     comments_id = db.Column(db.Integer, db.ForeignKey('destinations.id'))
+    # add currency or price
+    # Need to add date and place
 
-
+# Models will need some redoing. . In theory this shouldnt take that long, I am also happy to help do models

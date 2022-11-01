@@ -44,10 +44,10 @@ class Users(db.Model, UserMixin):
     phone = db.Column(db.String(15), nullable=False)
     address = db.Column(db.String(500), nullable=False)
 
-    # relation to call user.comments and comment.created_by
-    comments = db.relationship('Comment', backref='user')
-    created_events = db.relationship('Event', backref='user', viewonly=True)
-    created_bookings = db.relationship('Booking', backref='user')
+    # relation to call users.comments and comment.created_by
+    comments = db.relationship('Comment', backref='users')
+    created_events = db.relationship('Event', backref='users', viewonly=True)
+    created_bookings = db.relationship('Booking', backref='users')
 
     def __repr__(self):
         str = 'Name: {}. Email: {}'.format(self.name, self.emailid)

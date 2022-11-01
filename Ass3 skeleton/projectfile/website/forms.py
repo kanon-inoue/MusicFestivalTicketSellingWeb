@@ -17,13 +17,13 @@ def check_field_length(form, field):
         raise ValidationError('Your entry was too short! Must be 5 or more characters (not including spaces)')
 
 
-# creates the login information
+# creates the login information ..
 class LoginForm(FlaskForm):
     user_name=StringField("User Name", validators=[InputRequired('Enter user name')])
     password=PasswordField("Password", validators=[InputRequired('Enter user password')])
     submit = SubmitField("Login")
 
-# this is the registration form
+# this is the registration form ..
 class RegisterForm(FlaskForm):
     user_name=StringField("User Name", validators=[InputRequired()])
     email_id = StringField("Email Address", validators=[Email("Please enter a valid email")])
@@ -32,7 +32,7 @@ class RegisterForm(FlaskForm):
     password=PasswordField("Password", validators=[InputRequired(),
                   EqualTo('confirm', message="Passwords should match")])
     confirm = PasswordField("Confirm Password")
-
+    #use reg expression to check if phone number is start with 04 and 10 digts
     phone = StringField('Mobile Number', validators=[InputRequired(), Regexp(
         '^04[0-9]{8}$', message='Must be a 10 digit number starting with 04')])
     street_no = StringField('Street No.', validators=[InputRequired(), Regexp(

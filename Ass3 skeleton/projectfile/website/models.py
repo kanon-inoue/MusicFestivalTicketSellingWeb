@@ -15,7 +15,7 @@ class User(db.Model, UserMixin):
 
 
 
-class Tickets(db.Model): # Rename to booking
+class Booking(db.Model): # Rename to booking
     __tablename__ = 'Tickets'
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.column(db.Integer, foreign_key=True) # use db.ForeignKey instead look at how its done in comments

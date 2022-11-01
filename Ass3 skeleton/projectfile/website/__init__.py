@@ -26,7 +26,7 @@ def create_app():
     
     #initialize the login manager
     login_manager = LoginManager()
-    from .models import Users, Anonymous  # importing here to avoid circular references
+    from .models import User, Anonymous  # importing here to avoid circular references
     login_manager.anonymous_user = Anonymous
     login_manager.login_message_category = "warning"
     #set the name of the login function that lets user login
@@ -44,7 +44,7 @@ def create_app():
     #create a user loader function takes userid and returns User
     @login_manager.user_loader
     def load_user(user_id):
-        return Users.query.get(int(user_id))
+        return User.query.get(int(user_id))
 
     @app.context_processor
     def get_context():

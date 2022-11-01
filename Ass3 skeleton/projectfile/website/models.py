@@ -121,8 +121,7 @@ class Booking(db.Model):
         return "Booking ID: {0}, # Tickets: {1} Booking Owner: {2} Event ID:{3}".format(self.id, self.tickets_booked, self.user_id, self.event_id)
 
 
-# OLD CODE (Problem use the newer code more as its more relevant to our assignment (only really have to remove a few lines and make some edits for it to work with our code))
-
+# OLD CODE BELLOW (Problem use the newer code more as its more relevant to our assignment (only really have to remove a few lines and make some edits for it to work with our code))
 from . import db
 from datetime import datetime
 from flask_login import UserMixin

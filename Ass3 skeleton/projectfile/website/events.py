@@ -20,7 +20,7 @@ def show(id):
     if booking_form.validate_on_submit():
         return redirect(url_for('main.index'))
     artist_events = Event.query.filter_by(headliner=event.headliner).all()
-    return render_template('events/event_details.html', event=event, form=comments_form, booking_form=booking_form, artist_events=artist_events)
+    return render_template('events/eventDetails.html', event=event, form=comments_form, booking_form=booking_form, artist_events=artist_events)
 
 
 @eventbp.route('/view_all')

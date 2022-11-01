@@ -1,4 +1,3 @@
-import re
 from website.models import MusicGenre, EventState, EventStatus
 from flask_wtf import FlaskForm
 from wtforms.fields import TextAreaField, SubmitField, StringField, PasswordField, BooleanField, DecimalField, SelectField, IntegerField, DateTimeLocalField
@@ -17,7 +16,7 @@ def check_field_length(form, field):
         raise ValidationError('Your entry was too short! Must be 5 or more characters (not including spaces)')
 
 
-#creates the login information
+# creates the login information
 class LoginForm(FlaskForm):
     user_name=StringField("User Name", validators=[InputRequired('Enter user name')])
     password=PasswordField("Password", validators=[InputRequired('Enter user password')])
@@ -46,16 +45,14 @@ class RegisterForm(FlaskForm):
     # submit button
     submit = SubmitField("Register")
 
+# Event
 class EventForm(FlaskForm):
     title = StringField('Event Title', validators=[
                         InputRequired(message='Your event must have a title'), Length(min=3, max=50, 
                             message='Title must be between 4 and 50 characters'), check_field_length])
     date = DateTimeLocalField('Date and Time', format='%Y-%m-%dT%H:%M', validators=[
         InputRequired(message='Must be in the format: dd/mm/yyyy HH:MM')])
-    headliner = StringField('Headlining Artist', validators=[
-        InputRequired(message='Your event must have a headlining artist'), Length(min=1, max=40, 
-            message='Headliner cannot be more than 40 characters'), check_field_length])
-    venue = StringField('Venue', validators=[
+    place = StringField('Venue', validators=[
                         InputRequired(message='Your event must have a venue'), Length(min=1, max=40, 
                             message='Venue Name cannot be more than 40 characters'), check_field_length])
     desc = TextAreaField('Event Description', validators=[
@@ -64,10 +61,6 @@ class EventForm(FlaskForm):
     image = FileField('Event Image', validators=[
         FileRequired(message='Image cannot be empty'),
         FileAllowed(ALLOWED_FILE, message='Only supports png,jpg,JPG,PNG')])
-    total_tickets = IntegerField(
-        'Total Number of Tickets', 
-        validators=[InputRequired(message='You must select how many tickets are available for purchase.'), 
-        NumberRange(min=1, max=99999, message='Tickets must be between 1 and 99999')])
     price = DecimalField('Cost per ticket: $', validators=[InputRequired(message='You must choose a price per ticket.'), 
             NumberRange(min=0.01, max=999.99, message='Price must be between $1.00 and $999.99')])
     music_genre = SelectField('Choose a genre:', choices=[
@@ -77,34 +70,13 @@ class EventForm(FlaskForm):
                              e.name.title() for e in EventState], validators=[InputRequired(message='Your event must have a state it is located in')])
     submit = SubmitField('Create Event')
 
-class EditEventForm(FlaskForm):
-    title = StringField('Event Title', validators=[
-                        Length(min=3, max=50, message='Title cannot be more than 40 characters')])
-    date = DateTimeLocalField('Date and Time', format='%Y-%m-%dT%H:%M')
-    headliner = StringField('Headlining Artist', validators=[Length(
-        min=1, max=40, message='Headliner cannot be more than 40 characters')])
-    venue = StringField('Venue')
-    desc = TextAreaField('Event Description', validators=[
-                         Length(max=700, message='Event Description cannot be more than 700 characters.')])
-    image = FileField('Event Image', validators=[FileAllowed(
-        ALLOWED_FILE, message='Only supports png,jpg,JPG,PNG')])
-    total_tickets = IntegerField(
-        'Total Number of Tickets', validators=[NumberRange(min=1, max=99999, message='Tickets must be between 1 and 99999')])
-    price = DecimalField('Cost per ticket: $', validators=[NumberRange(
-        min=0.01, max=999.99, message='Price must be between $0.01 and $999.99')])
-    event_status = SelectField('Choose a status:', choices=[
-                               e.name.title() for e in EventStatus])
-    music_genre = SelectField('Choose a music genre:', choices=[
-                              e.name.title() for e in MusicGenre])
-    event_state = SelectField('Choose a state:', choices=[
-                             e.name.title() for e in EventState])
-    submit = SubmitField('Update Event')
-
+# Comment
 class CommentForm(FlaskForm):
     text = TextAreaField('Leave a Comment:', validators=[
                          InputRequired(message="Your comment can't be blank"), check_field_length])
     submit = SubmitField('Submit')
 
+# Booking
 class BookingForm(FlaskForm):
     tickets_required = IntegerField(
         'How many tickets would you like to book?', default='1', validators=[InputRequired()])

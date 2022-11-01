@@ -44,16 +44,6 @@ def view_events(genre):
         Events.event_status != 'INACTIVE').all()
     return render_template('index.html', heading=genre, events=music_genre_list)
 
-""" 
-@eventbp.route('/view_all/artist/<headliner>')
-def view_events_artist(headliner):
-    artist_events = Events.query.filter_by(headliner=headliner).filter(
-        Events.event_status != 'INACTIVE').all()
-    if len(artist_events) == 1:
-        return redirect(url_for('events.show', id=artist_events[0].id))
-    return render_template('index.html', heading=headliner, events=artist_events)
-"""
-
 @eventbp.route('/create', methods = ['GET', 'POST'])
 @login_required
 def create():

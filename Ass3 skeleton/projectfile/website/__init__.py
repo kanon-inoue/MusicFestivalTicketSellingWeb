@@ -37,7 +37,7 @@ def create_app():
     # add blueprints
     # importing views module here to avoid circular references a commonly used practice.
     from . import views, events, auth
-    app.register_blueprint(views.mainbp)
+    app.register_blueprint(views.viewsbp)
     app.register_blueprint(events.eventbp)
     app.register_blueprint(auth.authbp)
     

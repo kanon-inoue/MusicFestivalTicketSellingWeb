@@ -53,6 +53,7 @@ class User(UserMixin, db.Model):
     def __repr__(self):
         str = 'Name: {}. Email: {}'.format(self.name, self.emailid)
         return str
+    
 class Event(db.Model):
     __tablename__ = 'events'
     id = db.Column(db.Integer, primary_key=True, nullable=False)
@@ -75,11 +76,11 @@ class Event(db.Model):
     # relation to call event.comments and comment.event
     comments = db.relationship('Comment', backref='event')
     users = db.relationship('User', backref='event')
-    booking = db.relationship('Booking', backref='event', viewonly=True)
+    bookings = db.relationship('Booking', backref='event', viewonly=True)
 
     #add the foreign keys
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
-    #comments_id = db.Column(db.Integer, db.ForeignKey('events.id'))
+   #comments_id = db.Column(db.Integer, db.ForeignKey('events.id'))
 
     def __repr__(self):
         str = 'Title: {0}, Date: {1}'
@@ -109,7 +110,7 @@ class Booking(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     tickets_booked = db.Column(db.Integer, nullable=False)
     booked_on = db.Column(db.DateTime, default=datetime.now(), nullable=False)
-    booked_event = db.relationship('Event', backref='bookings')
+    booked_event = db.relationship('Event', backref='booking')
     # FK's
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
     event_id = db.Column(db.Integer, db.ForeignKey('events.id'), nullable=False)

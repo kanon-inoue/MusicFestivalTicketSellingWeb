@@ -61,7 +61,7 @@ def create_app():
             if event.date < datetime.now():
                 event.event_status=EventStatus.INACTIVE
         current_events = Event.query.filter(Event.event_status!='INACTIVE')
-        db.session.commit()
+        ession.commit()
         dropdown_events = Event.query.group_by(Event.headliner).filter(
         Event.event_status != 'INACTIVE').all()
         genres = MusicGenre

@@ -1,3 +1,25 @@
+{% extends 'base.html' %}
+{% import "bootstrap5/form.html" as wtf %}
+{% block content %}
+
+<!-- Creates A Form to Enter a new Event -->
+<br>
+<div id='page-container' class='container'>
+    <div class="row">
+        <br>
+        <h1 class="display-5 fw-bold">{{heading}}</h1>
+        <div class='col-xs-12 col-lg-6'>
+            {{wtf.render_form(event_form)}}
+        </div>
+    </div>
+</div>
+<!-- end container -->
+{% endblock %}
+
+
+
+
+
 <!-- 
 A form that allows a user to enter details of the event and create the event.
     a. The event creation page should allow the user to enter all the details for the event: 
@@ -5,7 +27,7 @@ A form that allows a user to enter details of the event and create the event.
     b. The form should use relevant element input types – dropdown, text area, text box, option buttons etc.
 -->
 
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 
 <html lang="en">
 
@@ -22,10 +44,10 @@ A form that allows a user to enter details of the event and create the event.
 
 <body>
     <div class = "container text-center">
-        <nav class = "border-bottom navbar"> <!-- top bar menu-->
+        <nav class = "border-bottom navbar">  
            <div class = "container-fluid align-items-center">
   
-           <!-- icon menu -->
+           
               <div>
                  <button class="navbar-toggler" 
                     type="button" 
@@ -38,7 +60,7 @@ A form that allows a user to enter details of the event and create the event.
                  </button>
               </div>
               
-              <!-- Logo -->
+          
               <div class = "LOGO">
                  <a class = "navbar-brand" 
                  href="#">
@@ -47,7 +69,7 @@ A form that allows a user to enter details of the event and create the event.
               
               <div class="collapse navbar-collapse" id="navbarToggle">
                  <ul class = "navbar-nav text-small show">
-                    <!-- navigation menus -->
+                  
                     <li class="nav-item">
                        <a class="dropdown-item" 
                           aria-current="page" 
@@ -117,7 +139,7 @@ A form that allows a user to enter details of the event and create the event.
 
             <div class = "container creating-options">
                 <div class = "row">
-                    <!-- name of the event-->
+                   
                     <div class = "question col">
                         <label for="eventName">Event name:</label>
                         <input type="text" id="eventName" name="eventName"
@@ -125,7 +147,7 @@ A form that allows a user to enter details of the event and create the event.
                         aria-label="Enter your event name" aria-describedby="event-name"
                         required>
                     </div>
-                        <!-- name of the artist-->
+                        
                     <div class = "question col">
                         <label for="artistName">Aritist name:</label>
                         <input type="text" id="artistName" name="artistName"
@@ -135,7 +157,7 @@ A form that allows a user to enter details of the event and create the event.
                     </div>
                 </div>
 
-                <!-- type of the music-->
+              
                 <div class = "question">
                     <label>Select your event music type(s):</label>
                     <div class = "text-muted">
@@ -179,13 +201,13 @@ A form that allows a user to enter details of the event and create the event.
                 </div>
                 
                 <div class = "row">
-                    <!-- date of the event-->
+                   
                     <div class = "question col">
                         <label for="eventDate">Choose a date for your event:</label>
                         <input type="date" id="eventDate" name="eventDate" 
                             value=" " min="2023-01-01" max="2023-12-31" required>
                     </div>
-                    <!-- time of the event-->
+                
                     <div class = "question col">
                         <label for="eventTime">Choose a time for your event:</label>
                         <input type="time" id="eventTime" name="eventTime" 
@@ -193,7 +215,7 @@ A form that allows a user to enter details of the event and create the event.
                     </div>
                 </div>
                 
-                <!-- place of the event-->
+            
                 <div class = "question">
                     <label for="eventPlace">Venue:</label>
                     <div class = "input-group">
@@ -215,7 +237,6 @@ A form that allows a user to enter details of the event and create the event.
                     </div>
                 </div>
 
-                <!-- description of the event-->
                 <div class = "question">
                     <label for="description">Enter an description for your event:</label>
                     <form>
@@ -228,7 +249,7 @@ A form that allows a user to enter details of the event and create the event.
                     </form>
                 </div>
                 
-                <!-- image of the event-->
+             
                 <div class = "question">
                     <label for="eventPic">Choose an event picture:</label>
                     <input type="file" id="eventPic" name="eventPic" 
@@ -247,7 +268,7 @@ A form that allows a user to enter details of the event and create the event.
         </section>
     </main>
 
-    <!-- Footer of the website -->
+ 
     <footer class = "container">
         <div class = "text-end1">
             <p>Copyright &copy; 2022</p>
@@ -255,4 +276,4 @@ A form that allows a user to enter details of the event and create the event.
     </footer>
 
 </body>
-</html>
+</html>  -->

@@ -38,7 +38,7 @@ def create_app():
     # importing views module here to avoid circular references a commonly used practice.
     from . import views, events, auth
     app.register_blueprint(views.viewsbp)
-    app.register_blueprint(events.eventbp)
+    app.register_blueprint(events.eventsbp)
     app.register_blueprint(auth.authbp)
     
     #create a user loader function takes userid and returns User

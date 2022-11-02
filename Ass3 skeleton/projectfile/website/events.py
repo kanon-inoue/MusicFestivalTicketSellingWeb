@@ -8,10 +8,10 @@ from werkzeug.utils import secure_filename
 from flask_login import current_user
 from datetime import datetime
 
-eventbp = Blueprint('events', __name__, url_prefix='/event')
+eventsbp = Blueprint('events', __name__, url_prefix='/event')
 
 
-@eventbp.route('/<id>')
+@eventsbp.route('/<id>')
 def show(id):
     event = Event.query.filter_by(id=id).first()
     # create the comment form
@@ -25,26 +25,26 @@ def show(id):
                 booking_form=booking_form, 
                 artist_events=artist_events)
 
-@eventbp.route('/view_all')
+@eventsbp.route('/view_all')
 def view_all_events():
     events = Event.query.filter(Event.event_status != 'INACTIVE').all()
     return render_template('index.html', heading='All Events', events=events)
 
-@eventbp.route('/view_all/state/<state_name>')
+@eventsbp.route('/view_all/state/<state_name>')
 def view_events_state(state_name):
     state_name = state_name.upper()
     state_events = Event.query.filter_by(event_state=state_name).filter(
         Event.event_status != 'INACTIVE').all()
     return render_template('index.html', heading=state_name, events=state_events)
 
-@eventbp.route('/view_all/<genre>')
+@eventsbp.route('/view_all/<genre>')
 def view_events(genre):
     genre = genre.upper()
     music_genre_list = Event.query.filter_by(music_genre=genre).filter(
         Event.event_status != 'INACTIVE').all()
     return render_template('index.html', heading=genre, events=music_genre_list)
 
-@eventbp.route('/create', methods = ['GET', 'POST'])
+@eventsbp.route('/create', methods = ['GET', 'POST'])
 @login_required
 def create():
 #print('Method type: ', request.method)
@@ -80,7 +80,7 @@ def create():
     return render_template('event/eventCreation.html', event_form=form, heading = 'Create a New Events')
 
 """
-@eventbp.route('/<id>/update', methods=['GET', 'POST'])
+@eventsbp.route('/<id>/update', methods=['GET', 'POST'])
 @login_required
 def update_event(id):
     event = Events.query.get(id)
@@ -132,7 +132,7 @@ def update_event(id):
     return render_template('event/eventCreation.html', event_form=form, event=event, heading='Edit Event')
 """
 
-@eventbp.route('/<id>/delete', methods=['GET', 'POST'])
+@eventsbp.route('/<id>/delete', methods=['GET', 'POST'])
 @login_required
 def delete_event(id):
     event = Event.query.get(id)
@@ -149,7 +149,7 @@ def delete_event(id):
     db.session.commit()
     #return redirect(url_for('main.my_events'))
 
-@eventbp.route('/<id>/comment', methods=['GET', 'POST'])
+@eventsbp.route('/<id>/comment', methods=['GET', 'POST'])
 @login_required
 def comment(id):
     form = CommentForm()
@@ -171,7 +171,7 @@ def comment(id):
     # using redirect sends a GET request to events.show
     return redirect(url_for('events.show', id = id))
 
-@eventbp.route('/<id>/book', methods=['GET', 'POST'])
+@eventsbp.route('/<id>/book', methods=['GET', 'POST'])
 @login_required
 def book_event(id):
     form = BookingForm()

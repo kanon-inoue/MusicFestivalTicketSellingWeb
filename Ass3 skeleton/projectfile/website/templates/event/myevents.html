@@ -1,0 +1,141 @@
+{% extends 'base.html' %}
+{% block content %}
+<!-- My Bookings -->
+{% if heading == 'My Bookings' %}
+<br>
+<!-- Shows current bookings as a list -->
+<div id='page-container' class="container">
+    <div class='row'>
+        <h1>{{heading}}</h1>
+        <p>
+        <h5>Hey, {{username}}! {% if bookings|length == 0 %}
+            <h5>You haven't booked any events!</h5>
+            <h5><a href='{{url_for("events.view_all_events")}}'>Click here to get started.</a></h5>
+            {% else %}
+            Here is a list of all the past and upcoming events you've booked.
+        </h5>
+        </p>
+    </div>
+    {% for booking in bookings %}
+    <br>
+    <!-- Displays all the details about the booked event -->
+    <div class='row border-bottom'>
+        <div class='col-sm-12 col-md-6 col-lg-8'>
+            <div class="card border-dark mb-3">
+                <div class="card-header">{{loop.index}}. <a id='card-header'
+                        href='{{url_for("events.show", id=booking.booked_event.id)}}'>{{booking.booked_event.title}}</a>
+                </div>
+                <div class="card-body text-dark">
+                    <div class='row'>
+                        <div class='col'>
+                            <h3 class="card-title"><strong>{{booking.booked_event.headliner}}</strong></h3>
+                            <p class="card-text">
+                            <h3><strong>{{booking.booked_event.date.strftime('%B %d, %Y @ %I:%M
+                                    %p')}}</strong></h3>
+                            <h3>{{booking.booked_event.venue}}, {{booking.booked_event.event_city.name.title()}}</h3>
+                            <h6><strong>Booking ID: </strong>{{booking.id}} <strong>Booked On:
+                                </strong>{{booking.booked_on.strftime('%d/%m/%Y @ %I:%M %p')}}</h6>
+                            <h6><strong>Tickets Booked: </strong>{{booking.tickets_booked}} <strong>Total Cost:
+                                </strong>{{"$%.2f"|format(booking.tickets_booked*booking.event.price)}}</h6>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class='col-sm-12 col-md-6 col-lg-4'>
+            <img src='{{booking.booked_event.image}}' id='history-image'
+                class='float-lg-end img-fluid img-thumbnail rounded d-block'>
+        </div>
+    </div>
+    {% endfor %} {% endif %}
+</div> <!-- end container -->
+        {% else %}
+        <!-- My Events -->
+        <!-- An opportunity to add and edit events that has been booked -->
+        <br>
+        <div id='page-container' class="container">
+            <div class='row'>
+                <h1>{{heading}}</h1>
+                <p>
+                <h5>Hey, {{username}}! {% if events|length == 0 %}
+                    <h5>You haven't created any events!</h5>
+                    <a href='{{url_for("events.create")}}'>Click here to get started.</a> {% else %} Here is a list of
+                    all the
+                    past and upcoming events you've created.<br>Click 'Edit Event' to update the details of an upcoming
+                    event.
+                </h5>
+                </p>
+            </div>
+            {% for event in events %}
+            <br>
+            <!--Show events details to be booked -->
+            <div class='row border-bottom'>
+                <div class='col-sm-12 col-md-6 col-lg-8'>
+                    <div class="card border-dark mb-3">
+                        <div class="card-header">{{loop.index}}. <a id='card-header'
+                                href='{{url_for("events.show", id=event.id)}}'>{{event.title}}</a>
+                        </div>
+                        <div class="card-body text-dark">
+                            <div class='row'>
+                                <div class='col'>
+                                    <h3 class="card-title"><strong>{{event.headliner}}</strong></h3>
+                                    <p class="card-text">
+                                    <h3>{{event.date.strftime('%B %d, %Y @ %#I:%M
+                                        %p')}} - <strong>{{event.event_status.name.title()}}</strong></h3>
+                                    <h3>{{event.venue}}, {{event.event_city.name.title()}}</h3>
+                                    <h6><strong>Event ID: </strong>{{event.id}}<strong> Created On:
+                                        </strong>{{event.created_on.strftime('%d/%m/%Y')}} <strong>Genre:
+                                        </strong>{{event.event_genre.name.title()}}</h6>
+                                    <h6><strong>Tickets Sold: </strong>{{event.tickets_booked}}<strong> Tickets
+                                            Remaining:
+                                        </strong>{{event.tickets_remaining}}</h6>
+                                    </p>
+                                </div>
+                            </div>
+                        <!-- Allow to edit the events details that is already displayed -->
+                            <div class='row'>
+                                <div class='col-12'>
+                                    <a href='{{url_for("events.update_event", id=event.id)}}'
+                                        class='btn float-start me-1' id='edit-button' type='button'>Edit Event</a>
+                                    <button id='delete-button' type='button' class='btn float-start'
+                                        data-bs-toggle='modal' data-bs-target='#delete-event-{{event.id}}'>
+                                        Delete Event
+                                    </button>
+                                </div>
+                            </div>
+                            <div class='row'>
+                                <div class='col-md-6 col-xl-3'>
+                                    <!-- Modal (Confirmation of deletion of event)-->
+                                    <div class='modal fade' id='delete-event-{{event.id}}' tabindex='-1'
+                                        aria-labelledby='delete-event-{{event.id}}' aria-hidden='true'>
+                                        <div class='modal-dialog'>
+                                            <div class='modal-content'>
+                                                <div class='modal-header'>
+                                                    <h5 class='modal-title' id='deleteEventModalLabel'>Delete
+                                                        <strong>{{event.title}}</strong>
+                                                    </h5>
+                                                    <button type='button' class='btn-close' data-bs-dismiss='modal'
+                                                        aria-label='Close'></button>
+                                                </div>
+                                                <div class='modal-body'>
+                                                    <p>Are you sure you want to delete this event?</p>
+                                                    <a href='{{url_for("events.delete_event", id=event.id)}}'
+                                                        class='btn btn-danger' id='edit-button' type='button'
+                                                        class='btn btn-dark'>Delete Event</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div><!-- end modal -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class='col-sm-12 col-md-6 col-lg-4'>
+                    <img src='{{event.image}}' id='history-image' class='float-lg-end img-fluid img-thumbnail rounded d-block'>
+                </div>
+            </div>
+            {% endfor %} {% endif %}
+        </div><!-- end container -->
+        {% endif %} {% endblock %}

@@ -1,6 +1,6 @@
 from . import db
-from datetime import datetime
 from flask_login import UserMixin, AnonymousUserMixin
+from datetime import datetime
 from sqlalchemy import Enum, DateTime
 from enum import Enum
 
@@ -33,43 +33,29 @@ class EventState(Enum):
     ADELAIDE = 5
 
 
-class Users(db.Model, UserMixin):
+class User(UserMixin, db.Model):
     __tablename__='users' 
-    id = db.Column(db.Integer, primary_key=True)
+    id = db.Column(db.Integer, primary_key=True, nullable=False)
     name = db.Column(db.String(100), index=True, unique=True, nullable=False)
     emailid = db.Column(db.String(100), index=True, nullable=False)
-	# password is never stored in the DB, an encrypted password is stored
-    # # the storage should be at least 255 chars long
+	# password is never stored in the DB
+    # an encrypted password is stored
+    # the storage should be at least 255 chars long
     password_hash = db.Column(db.String(255), nullable=False)
     phone = db.Column(db.String(15), nullable=False)
     address = db.Column(db.String(500), nullable=False)
 
-    # relation to call users.comments and comment.created_by
-    comments = db.relationship('Comment', backref='users')
-    created_events = db.relationship('Event', backref='users', viewonly=True)
-    created_bookings = db.relationship('Booking', backref='users')
+    # relation to call user.comments and comment.created_by
+    comments = db.relationship('Comment', backref='user')
+    created_events = db.relationship('Event', backref='user', viewonly=True)
+    created_bookings = db.relationship('Booking', backref='user')
 
     def __repr__(self):
         str = 'Name: {}. Email: {}'.format(self.name, self.emailid)
         return str
-
-
-class Comments(db.Model):
-    __tablename__ = 'comments'
-    id = db.Column(db.Integer, primary_key=True, nullable=False)
-    text = db.Column(db.String(400), nullable=False)
-    created_at = db.Column(db.DateTime, default=datetime.now(), nullable=False)
-    #add the foreign keys
-    user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
-    events_id = db.Column(db.Integer, db.ForeignKey('events.id'), nullable=False)
-
-    def __repr__(self):
-        return "<Comment: {}>".format(self.text)
-
-
-class Events(db.Model):
+class Event(db.Model):
     __tablename__ = 'events'
-    id = db.Column(db.Integer, primary_key=True)
+    id = db.Column(db.Integer, primary_key=True, nullable=False)
     title = db.Column(db.String(100), index=True, unique=True, nullable=False)
     date = db.Column(db.DateTime, nullable=False)
     headliner = db.Column(db.String(80), index=True, nullable=False)
@@ -87,12 +73,12 @@ class Events(db.Model):
 
     # ... Create the Comments db.relationship
     # relation to call event.comments and comment.event
-    comments = db.relationship('Comment', backref='events')
-    users = db.relationship('User', backref='events')
-    booking = db.relationship('Booking', backref='events', viewonly=True)
+    comments = db.relationship('Comment', backref='event')
+    users = db.relationship('User', backref='event')
+    booking = db.relationship('Booking', backref='event', viewonly=True)
 
     #add the foreign keys
-    user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
     #comments_id = db.Column(db.Integer, db.ForeignKey('events.id'))
 
     def __repr__(self):
@@ -105,7 +91,18 @@ class Events(db.Model):
 
     def __hash__(self):
         return hash(('id', self.id))
+    
+class Comment(db.Model):
+    __tablename__ = 'comments'
+    id = db.Column(db.Integer, primary_key=True, nullable=False)
+    text = db.Column(db.String(400), nullable=False)
+    created_at = db.Column(db.DateTime, default=datetime.now(), nullable=False)
+    #add the foreign keys
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
+    events_id = db.Column(db.Integer, db.ForeignKey('events.id'), nullable=False)
 
+    def __repr__(self):
+        return "<Comment: {}>".format(self.text)
 
 class Booking(db.Model):
     __tablename__ = 'bookings'

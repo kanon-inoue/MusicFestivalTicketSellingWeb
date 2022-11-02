@@ -83,3 +83,22 @@ class BookingForm(FlaskForm):
     tickets_required = IntegerField(
         'How many tickets would you like to book?', default='1', validators=[InputRequired()])
     submit = SubmitField('Confirm Booking')
+
+class EditEventForm(FlaskForm):
+    title = StringField('Event Title', validators=[
+                        Length(min=3, max=50, message='Title cannot be more than 40 characters')])
+    date = DateTimeLocalField('Date and Time', format='%Y-%m-%dT%H:%M')
+    headliner = StringField('Headlining Artist', validators=[Length(
+        min=1, max=40, message='Headliner cannot be more than 40 characters')])
+    venue = StringField('Venue')
+    desc = TextAreaField('Event Description', validators=[
+                         Length(max=700, message='Event Description cannot be more than 700 characters.')])
+    image = FileField('Event Image', validators=[FileAllowed(
+        ALLOWED_FILE, message='Only supports png,jpg,JPG,PNG')])
+    total_tickets = IntegerField(
+        'Total Number of Tickets', validators=[NumberRange(min=1, max=99999, message='Tickets must be between 1 and 99999')])
+    price = DecimalField('Cost per ticket: $', validators=[NumberRange(
+        min=0.01, max=999.99, message='Price must be between $0.01 and $999.99')])
+    event_status = SelectField('Choose a status:', choices=[
+                               e.name.title() for e in EventStatus])
+    submit = SubmitField('Update Event')

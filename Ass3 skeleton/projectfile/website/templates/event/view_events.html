@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% block content %}
+<!-- display the events in a list form-->
+<div id='page-container' class="container">
+  <div class='row'>
+    <h1>{{heading.title()}}</h1>
+  </div>
+  {% if events|length == 0 %}
+  <h5>There aren't any events to see here!</h5>
+  {% else %}
+  {% for event in events %}
+  <br>
+  <div class='row border-bottom'>
+    <div class='col-sm-12 col-md-6 col-lg-8'>
+      <div class="card border-dark mb-3">
+        <div class="card-header">{{loop.index}}. <a id='card-header'
+            href='{{url_for("events.show", id=event.id)}}'>{{event.title}}</a>
+        </div>
+        <div class="card-body text-dark">
+          <h3 class="card-title"><strong>{{event.headliner}}</strong></h3>
+          <p class="card-text">
+          <h3>{{event.date.strftime('%B %d, %Y @ %I:%M
+            %p')}} - <strong>{{event.event_status.name.title()}}</strong></h3>
+          <h3>{{event.venue}}, {{event.event_city.name.title()}}</h3>
+          <h6><strong>Event ID: </strong>{{event.id}}<strong> Created On:
+            </strong>{{event.created_on.strftime('%d/%m/%Y')}} <strong>Genre:
+            </strong>{{event.event_genre.name.title()}}</h6>
+          </p>
+        </div>
+      </div>
+    </div>
+    <div class='col-sm-12 col-md-6 col-lg-4'>
+      <img src='{{event.image}}' id='history-image' class='float-lg-end img-fluid img-thumbnail rounded'>
+    </div>
+  </div>
+  {% endfor %}
+  {% endif %}
+</div><!-- end container -->
+{% endblock %}

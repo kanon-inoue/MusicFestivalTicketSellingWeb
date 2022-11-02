@@ -1,4 +1,33 @@
 
+{% extends 'base.html' %}
+{% import "bootstrap5/form.html" as wtf %}
+{% block content %}
+
+<!-- Setting up the upcoming concerts for the artist-->
+<div id='page-container' class='container'>
+    <div class='row'>
+        <div class='col-sm-12 col-md-6'>
+            <figure class="figure">
+                <img src='{{event.image}}' id='hero-image' class='mx-auto d-block img-fluid shadow-lg p-1 mb-2' alt=''>
+                <figcaption class="figure-caption">{{event.headliner}}</figcaption>
+            </figure>
+        </div>
+        <div class='col-sm-12 col-md-6'>
+            <h2><strong>Upcoming Events by This Artist:</strong></h2>
+            <div class='info_box'>
+                {% for artist_event in artist_events %}
+                <p><strong><a href='{{url_for("events.show", id=artist_event.id)}}'>{{artist_event.title}}</strong></a>
+                </p>
+                <p>{{artist_event.date.strftime('%B %d, %Y @ %I:%M
+                    %p')}}</p>
+                <p>{{artist_event.venue}}, <strong>{{artist_event.event_city.name.title()}}</strong></p>
+                <hr>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+    
 
 
 

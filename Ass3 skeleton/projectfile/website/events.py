@@ -1,6 +1,6 @@
 from flask import Blueprint, render_template, request, redirect, url_for, current_app
 from flask_login.utils import login_required
-from .models import Events, Comments, EventState, MusicGenre, EventStatus, Booking
+from .models import Event, Comment, EventState, MusicGenre, EventStatus, Booking
 from .forms import EventForm, CommentForm, BookingForm #EditEventForm
 from . import db
 import os
@@ -13,13 +13,13 @@ eventbp = Blueprint('events', __name__, url_prefix='/events')
 
 @eventbp.route('/<id>')
 def show(id):
-    event = Events.query.filter_by(id=id).first()
+    event = Event.query.filter_by(id=id).first()
     # create the comment form
     comments_form = CommentForm()
     booking_form = BookingForm()
     if booking_form.validate_on_submit():
         return redirect(url_for('main.index'))
-    artist_events = Events.query.filter_by(headliner=event.headliner).all()
+    artist_events = Event.query.filter_by(headliner=event.headliner).all()
     return render_template('event/eventDetail.html', 
                 event=event, form=comments_form,
                 booking_form=booking_form, 
@@ -27,21 +27,21 @@ def show(id):
 
 @eventbp.route('/view_all')
 def view_all_events():
-    events = Events.query.filter(Events.event_status != 'INACTIVE').all()
+    events = Event.query.filter(Event.event_status != 'INACTIVE').all()
     return render_template('index.html', heading='All Events', events=events)
 
 @eventbp.route('/view_all/state/<state_name>')
 def view_events_state(state_name):
     state_name = state_name.upper()
-    state_events = Events.query.filter_by(event_state=state_name).filter(
-        Events.event_status != 'INACTIVE').all()
+    state_events = Event.query.filter_by(event_state=state_name).filter(
+        Event.event_status != 'INACTIVE').all()
     return render_template('index.html', heading=state_name, events=state_events)
 
 @eventbp.route('/view_all/<genre>')
 def view_events(genre):
     genre = genre.upper()
-    music_genre_list = Events.query.filter_by(music_genre=genre).filter(
-        Events.event_status != 'INACTIVE').all()
+    music_genre_list = Event.query.filter_by(music_genre=genre).filter(
+        Event.event_status != 'INACTIVE').all()
     return render_template('index.html', heading=genre, events=music_genre_list)
 
 @eventbp.route('/create', methods = ['GET', 'POST'])
@@ -56,7 +56,7 @@ def create():
     if form.validate_on_submit() and proceed == True:
         #call the function that checks and returns image    
         db_file_path = check_upload_file(form)
-        event = Events(title=form.title.data, 
+        event = Event(title=form.title.data, 
                 date=form.date.data, 
                 headliner=form.headliner.data, 
                 venue=form.venue.data, 
@@ -135,14 +135,14 @@ def update_event(id):
 @eventbp.route('/<id>/delete', methods=['GET', 'POST'])
 @login_required
 def delete_event(id):
-    event = Events.query.get(id)
+    event = Event.query.get(id)
     # Make sure the current user is deleting their own
     # event and not someone else's
     if current_user.id != event.user_id:
         print("You can only edit your own events!", 'danger')
         #return redirect(url_for('main.my_events'))
     # Delete the event from the database
-    Events.query.filter_by(id=id).delete()
+    Event.query.filter_by(id=id).delete()
     # Delete any associated bookings
     # (should also delete the comments to save disk space)
     Booking.query.filter_by(event_id=id).delete()
@@ -153,11 +153,11 @@ def delete_event(id):
 @login_required
 def comment(id):
     form = CommentForm()
-    # get the Events object associated to the page and the comment
-    event = Events.query.filter_by(id=id).first()
+    # get the Event object associated to the page and the comment
+    event = Event.query.filter_by(id=id).first()
     if form.validate_on_submit():
         # read the comment from the form
-        comment = Comments(text = form.text.data,
+        comment = Comment(text = form.text.data,
                           event = event, 
                           created_at = datetime.now(), 
                           user_id = current_user.id)
@@ -175,7 +175,7 @@ def comment(id):
 @login_required
 def book_event(id):
     form = BookingForm()
-    event = Events.query.filter_by(id=id).first()
+    event = Event.query.filter_by(id=id).first()
     # check to see if the booking should be allowed to go ahead
     if check_tickets(form, event):
         if form.validate_on_submit():
@@ -183,7 +183,7 @@ def book_event(id):
             new_booking = Booking(
                 tickets_booked=form.tickets_required.data, booked_on=datetime.now(), user_id=current_user.id, event_id=id)
             # Find the event this booking is for and update its remaining tickets
-            Events.query.filter_by(id=id).update(
+            Event.query.filter_by(id=id).update(
                 {'tickets_remaining': event.tickets_remaining-form.tickets_required.data, 'tickets_booked': event.tickets_booked+form.tickets_required.data}, synchronize_session='evaluate')
             db.session.add(new_booking)
             db.session.commit()

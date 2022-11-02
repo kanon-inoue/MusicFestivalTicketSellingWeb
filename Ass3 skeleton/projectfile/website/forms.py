@@ -9,7 +9,7 @@ from flask_wtf.file import FileRequired, FileField, FileAllowed
 ALLOWED_FILE = {'PNG', 'JPG', 'JPEG', 'jpeg', 'png', 'jpg'}
 
 # Unlike the built-in Length validator, this will remove whitespace when counting length
-# to prevent users from creating Events with properties that are all or mostly whitespace
+# to prevent users from creating  with properties that are all or mostly whitespace
 def check_field_length(form, field):
     field = field.data.strip()
     if len(field) < 5:

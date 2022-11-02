@@ -26,7 +26,7 @@ def create_app():
     
     #initialize the login manager
     login_manager = LoginManager()
-    from .models import Users, Anonymous  # importing here to avoid circular references
+    from .models import User, Anonymous  # importing here to avoid circular references
     login_manager.anonymous_user = Anonymous
     login_manager.login_message_category = "warning"
     #set the name of the login function that lets user login
@@ -44,7 +44,7 @@ def create_app():
     #create a user loader function takes userid and returns User
     @login_manager.user_loader
     def load_user(user_id):
-        return Users.query.get(int(user_id))
+        return User.query.get(int(user_id))
 
     @app.context_processor
     def get_context():
@@ -53,17 +53,17 @@ def create_app():
             name = 'Guest'
         else:
             name = current_user.name
-        from website.models import Events, EventState, MusicGenre, EventStatus
-        all_events = Events.query.all()
+        from website.models import Event, EventState, MusicGenre, EventStatus
+        all_events = Event.query.all()
         # On launch, check if there are any events that are now in the past
         # and if so, change them to Inactive
         for event in all_events:
             if event.date < datetime.now():
                 event.event_status=EventStatus.INACTIVE
-        current_events = Events.query.filter(Events.event_status!='INACTIVE')
+        current_events = Event.query.filter(Event.event_status!='INACTIVE')
         db.session.commit()
-        dropdown_events = Events.query.group_by(Events.headliner).filter(
-        Events.event_status != 'INACTIVE').all()
+        dropdown_events = Event.query.group_by(Event.headliner).filter(
+        Event.event_status != 'INACTIVE').all()
         genres = MusicGenre
         states = EventState
         return(dict(events_list=all_events, artist_list=dropdown_events,

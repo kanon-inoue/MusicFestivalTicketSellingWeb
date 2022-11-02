@@ -1,7 +1,7 @@
 from flask import Blueprint, render_template, request, redirect, url_for, current_app
 from flask_login.utils import login_required
 from .models import Events, Comments, EventState, MusicGenre, EventStatus, Booking
-from .forms import EventForm, CommentForm, EditEventForm, BookingForm
+from .forms import EventForm, CommentForm, BookingForm #EditEventForm
 from . import db
 import os
 from werkzeug.utils import secure_filename
@@ -79,6 +79,7 @@ def create():
         # return redirect(url_for('main.my_events')) ################## not sure 
     return render_template('event/eventCreation.html', event_form=form, heading = 'Create a New Events')
 
+"""
 @eventbp.route('/<id>/update', methods=['GET', 'POST'])
 @login_required
 def update_event(id):
@@ -129,6 +130,7 @@ def update_event(id):
         # end with redirect when form is valid
         #return redirect(url_for('main.my_events'))
     return render_template('event/eventCreation.html', event_form=form, event=event, heading='Edit Event')
+"""
 
 @eventbp.route('/<id>/delete', methods=['GET', 'POST'])
 @login_required

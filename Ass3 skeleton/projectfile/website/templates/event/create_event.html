@@ -1,19 +1,19 @@
 {% extends 'base.html' %}
-{% import "bootstrap5/form.html" as wtf %}
+
+{% import "bootstrap/form.html" as wtf %}
 {% block content %}
 
 <!-- Creates A Form to Enter a new Event -->
-<br>
-<div id='page-container' class='container'>
-    <div class="row">
-        <br>
-        <h1 class="display-5 fw-bold">{{heading}}</h1>
-        <div class='col-xs-12 col-lg-6'>
+    <div id='page-container' class='container'>
+        <div class="row">
+            <h1 class="display-5 fw-bold">{{heading}}</h1>
+            <p>Enter a event information that will help clients attend.</p>
+            <div class='col-xs-12 col-lg-6'>
             {{wtf.render_form(event_form)}}
+            </div>
         </div>
     </div>
-</div>
-<!-- end container -->
+
 {% endblock %}
 
 

@@ -19,7 +19,7 @@ def create_app():
     # a secret key for the session object
     app.secret_key = 'abcde'
     # configue and initialise DB
-    app.config['SQLALCHEMY_DATABASE_URI']='sqlite:///music_ticket.sqlite'
+    app.config['SQLALCHEMY_DATABASE_URI']='sqlite:///music_events.sqlite'
     app.config['UPLOAD_FOLDER'] = 'static/images/'
     #initialize db with flask app
     db.init_app(app)
@@ -62,7 +62,7 @@ def create_app():
                 event.event_status=EventStatus.INACTIVE
         current_events = Event.query.filter(Event.event_status!='INACTIVE')
         db.session.commit()
-        dropdown_events = Event.query.group_by(Event.headliner).filter(
+        dropdown_events = Event.query.group_by(Event.title).filter(
         Event.event_status != 'INACTIVE').all()
         genres = MusicGenre
         states = EventState

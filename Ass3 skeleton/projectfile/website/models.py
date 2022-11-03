@@ -1,4 +1,4 @@
-from website import db
+from . import db
 from flask_login import UserMixin, AnonymousUserMixin
 from datetime import datetime
 from sqlalchemy import Enum, DateTime
@@ -74,7 +74,7 @@ class Event(db.Model):
     tickets_remaining = db.Column(db.Integer, nullable=False)
     price = db.Column(db.Float, nullable=False)
     event_status = db.Column(db.Enum(EventStatus))
-    music_genre = db.Column(db.Enum(MusicGenre))
+    event_genre = db.Column(db.Enum(MusicGenre))
     event_state = db.Column(db.Enum(EventState))
     
 

@@ -19,7 +19,7 @@ def show(id):
     booking_form = BookingForm()
     if booking_form.validate_on_submit():
         return redirect(url_for('main.index'))
-    artist_events = Event.query.filter_by(headliner=event.headliner).all()
+    artist_events = Event.query.filter_by(name=event.name).all()
     return render_template('event/eventDetail.html', 
                 event=event, form=comments_form,
                 booking_form=booking_form, 
@@ -57,16 +57,15 @@ def create():
         #call the function that checks and returns image    
         db_file_path = check_upload_file(form)
         event = Event(title=form.title.data, 
-                date=form.date.data, 
-                headliner=form.headliner.data, 
-                venue=form.venue.data, 
+                date=form.date.data,
+                place=form.venue.data, 
                 description=form.desc.data,
                 image=db_file_path, 
                 total_tickets=form.total_tickets.data, 
                 tickets_remaining=form.total_tickets.data, 
                 price=form.price.data, 
                 event_status=EventStatus(1).name,
-                music_genre=form.music_genre.data.upper(), 
+                event_genre=form.music_genre.data.upper(), 
                 event_state=form.event_state.data.upper(), 
                 created_on=datetime.now(), 
                 user_id=current_user.id)    

@@ -43,7 +43,7 @@
             <!-- Logo -->
             <div class = "LOGO container-fluid col-4">
                <a class = "navbar-brand" 
-               href="#">
+               href ='{{url_for("main.index")}}'>
                MyMusicTicket</a>
             </div>
 
@@ -59,18 +59,18 @@
                   <li class="nav-item">
                      <a class="dropdown-item" 
                         aria-current="page" 
-                        href = "#">Home</a>
+                        href ='{{url_for("main.index")}}'>Home</a>
                   </li>
                   <li>
                      <a class="dropdown-item" 
                         aria-current="page" 
-                        href = "#">
+                        href='{{url_for("events.show", id=id)}}'>
                         Event Details</a>
                   </li>
                   <li>
                      <a class="dropdown-item" 
                         aria-current="page" 
-                        href = "#">
+                        href ='{{url_for("events.create")}}'>
                         Event Creation</a>
                   </li>
                   <li>

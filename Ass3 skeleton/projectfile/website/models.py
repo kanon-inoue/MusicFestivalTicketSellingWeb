@@ -22,8 +22,8 @@ class MusicGenre(Enum):
     POP = 3
     REGGAE = 4
     ROCK = 5
-    OTHER = 6
-    CLASSIC = 7
+    CLASSIC = 6
+    OTHER = 7
 
 # need to change the order and variable names
 class EventState(Enum):

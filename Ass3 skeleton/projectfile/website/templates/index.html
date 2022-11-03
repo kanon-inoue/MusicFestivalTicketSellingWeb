@@ -34,7 +34,7 @@
             <!-- Logo -->
             <div class = "LOGO container-fluid col-4">
                <a class = "navbar-brand" 
-               href="#">
+               href="base.html">
                KANONTicket</a>
             </div>
 
@@ -51,18 +51,18 @@
                   <li class="nav-item">
                      <a class="dropdown-item" 
                         aria-current="page" 
-                        href = "#">Home</a>
+                        href = "base.html">Home</a>
                   </li>
                   <li>
                      <a class="dropdown-item" 
                         aria-current="page" 
-                        href = "#">
+                        href = "{{url_for("events.show")}}">
                         Event Details</a>
                   </li>
                   <li>
                      <a class="dropdown-item" 
                         aria-current="page" 
-                        href = "#">
+                        href = "{{url_for("events.create")}}">
                         Event Creation</a>
                   </li>
                   <li>
@@ -96,18 +96,30 @@
                         id="inputTpeSelect" 
                         aria-label="Example select with button addon">
                      <option selected>Choose...</option>
-                     <option value="1">Classical</option>
-                     <option value="2">Jazz</option>
-                     <option value="3">Pop</option>
-                     <option value="4">Hip Hop</option>
-                     <option value="5">Country</option>
-                     <option value="6">Indie</option>
-                     <option value="7">Rock</option>
-                     <option value="8">EDM</option>
-                     <option value="9">Techno</option>
-                     <option value="10">House</option>
-                     <option value="11">R&B</option>
-                     <option value="12">else</option>
+                     <option value="1">DANCE</option>
+                     <option value="2">JAZZ</option>
+                     <option value="3">POP</option>
+                     <option value="4">REGGAE</option>
+                     <option value="5">ROCK</option>
+                     <option value="6">CLASSIC</option>
+                     <option value="7">OTHER</option>
+                     </select>
+                     <button class="btn btn-outline-secondary" 
+                        type="button">Search</button>
+                  </div>
+               </div>
+
+               <div class = "search-section">
+                  <label>Event Status</label>
+                  <div class="input-group ">
+                     <select class="form-select form-select-sm" 
+                        id="inputTpeSelect" 
+                        aria-label="Example select with button addon">
+                     <option selected>Choose...</option>
+                     <option value="1">UPCOMING</option>
+                     <option value="2">CANCELLED</option>
+                     <option value="3">BOOKED</option>
+                     <option value="4">INACTIVE</option>
                      </select>
                      <button class="btn btn-outline-secondary" 
                         type="button">Search</button>

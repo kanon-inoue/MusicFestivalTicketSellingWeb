@@ -40,9 +40,9 @@
 
             <!-- account sign up/in buttons -->
             <form class = "container-fluid justify-content-end col-4">
-               <button class = "btn btn-outline-success me-2" 
+               <button a href="{{ url_for('auth.login') }}" class = "btn btn-outline-success me-2" 
                      type = "button">LOGIN</button>
-               <button class = "btn btn-outline-success me-2" 
+               <button a href="{{ url_for('auth.register') }}" class = "btn btn-outline-success me-2" 
                      type = "button">SIGNUP</button>
             </form>
             

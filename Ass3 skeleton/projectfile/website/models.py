@@ -1,4 +1,4 @@
-from . import db
+from website import db
 from flask_login import UserMixin, AnonymousUserMixin
 from datetime import datetime
 from sqlalchemy import Enum, DateTime
@@ -77,52 +77,6 @@ class Event(db.Model):
     music_genre = db.Column(db.Enum(MusicGenre))
     event_state = db.Column(db.Enum(EventState))
     
-
-    # ... Create the Comments db.relationship
-    # relation to call event.comments and comment.event
-    comments = db.relationship('Comment', backref='event')
-    users = db.relationship('User', backref='event')
-    bookings = db.relationship('Booking', backref='event', viewonly=True)
-
-    #add the foreign keys
-    user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
-   #comments_id = db.Column(db.Integer, db.ForeignKey('events.id'))
-
-    def __repr__(self):
-        str = 'Title: {0}, Date: {1}'
-        str.format(self.title, self.date)
-        return str
-
-    def __eq__(self, other):
-        return self.id == other.id
-
-    def __hash__(self):
-        return hash(('id', self.id))
-    
-class Comment(db.Model):
-    __tablename__ = 'comments'
-    id = db.Column(db.Integer, primary_key=True, nullable=False)
-    text = db.Column(db.String(400), nullable=False)
-    created_at = db.Column(db.DateTime, default=datetime.now(), nullable=False)
-    #add the foreign keys
-    user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
-    events_id = db.Column(db.Integer, db.ForeignKey('events.id'), nullable=False)
-
-    def __repr__(self):
-        return "<Comment: {}>".format(self.text)
-
-class Booking(db.Model):
-    __tablename__ = 'bookings'
-    id = db.Column(db.Integer, primary_key=True)
-    tickets_booked = db.Column(db.Integer, nullable=False)
-    booked_on = db.Column(db.DateTime, default=datetime.now(), nullable=False)
-    booked_event = db.relationship('Event', backref='booking')
-    # FK's
-    user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
-    event_id = db.Column(db.Integer, db.ForeignKey('events.id'), nullable=False)
-
-    def __repr__(self):
-        return "Booking ID: {0}, # Tickets: {1} Booking Owner: {2} Event ID:{3}".format(self.id, self.tickets_booked, self.user_id, self.event_id)
 
     # ... Create the Comments db.relationship
     # relation to call event.comments and comment.event

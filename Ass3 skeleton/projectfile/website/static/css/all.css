@@ -130,7 +130,7 @@
 .event-title {
     position: relative;
     text-align: center;
-    background-image: url("Home.jpg");
+    background-image: '{{url_for("static", filename="images/Home.jpg")}}';
     background-size: cover;
     background-position: center;
     height: 90vh;

@@ -130,7 +130,7 @@
 .event-title {
     position: relative;
     text-align: center;
-    background-image: url("../images/Home.jpg");
+    background-image: url("/static/css/images/Home.jpg");
     background-size: cover;
     background-position: center;
     height: 90vh;

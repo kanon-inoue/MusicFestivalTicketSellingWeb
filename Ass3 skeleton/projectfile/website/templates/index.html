@@ -40,10 +40,9 @@
 
             <!-- account sign up/in buttons -->
             <form class = "container-fluid justify-content-end col-4">
-               <button href='{{url_for("auth.login")}}' class = "btn btn-outline-success me-2" 
-                     type = "button">LOGIN</button>
-               <button href='{{url_for("auth.register")}}' class = "btn btn-outline-success me-2" 
-                     type = "button">SIGNUP</button>
+               <a href='{{url_for("auth.login")}}' class="btn btn-outline-success me-2" role="button">LOGIN</a>
+               <a href='{{url_for("auth.register")}}' class="btn btn-outline-success me-2" role="button">SIGNUP</a>
+               
             </form>
             
             <div class="collapse navbar-collapse" id="navbarToggle">

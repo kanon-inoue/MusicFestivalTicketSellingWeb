@@ -1,6 +1,6 @@
-from flask import Blueprint, render_template, request, redirect, url_for, current_app, flash
+from flask import Blueprint, render_template, redirect, url_for, current_app, flash
 from flask_login.utils import login_required
-from .models import Event, Comment, EventState, MusicGenre, EventStatus, Booking
+from .models import Event, Comment, EventStatus, Booking,EventGenre
 from .forms import EventForm, CommentForm, BookingForm #EditEventForm
 from . import db
 import os
@@ -40,9 +40,9 @@ def view_events_state(state_name):
 @eventsbp.route('/view_all/<genre>')
 def view_events_genre(genre):
     genre = genre.upper()
-    music_genre_list = Event.query.filter_by(music_genre=genre).filter(
+    event_genre_list = Event.query.filter_by(event_genre=genre).filter(
         Event.event_status != 'INACTIVE').all()
-    return render_template('index.html', heading=genre, events=music_genre_list)
+    return render_template('index.html', heading=genre, events=event_genre_list)
 
 @eventsbp.route('/create', methods = ['GET', 'POST'])
 @login_required
@@ -66,7 +66,7 @@ def create():
                 tickets_remaining=form.total_tickets.data, 
                 price=form.price.data, 
                 event_status=EventStatus(1).name,
-                music_genre=form.music_genre.data.upper(), 
+                event_genre=form.event_genre.data.upper(), 
                 event_state=form.event_state.data.upper(), 
                 created_on=datetime.now(), 
                 user_id=current_user.id)    

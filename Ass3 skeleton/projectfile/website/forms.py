@@ -74,7 +74,7 @@ class EventForm(FlaskForm):
                               validators=[InputRequired(message='Your event must have a music genre')])
     event_state = SelectField('Choose a state:', choices=[
                              e.name.title() for e in EventState], validators=[InputRequired(message='Your event must have a state it is located in')])
-    submit = SubmitField('create')
+    submit = SubmitField('Create Event')
 
 # Commenting, allows user to write comments to add and appear on the event pages
 class CommentForm(FlaskForm):

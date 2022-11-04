@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, request, redirect, url_for, current_app
+from flask import Blueprint, render_template, request, redirect, url_for, current_app, flash
 from flask_login.utils import login_required
 from .models import Event, Comment, EventState, MusicGenre, EventStatus, Booking
 from .forms import EventForm, CommentForm, BookingForm #EditEventForm
@@ -47,36 +47,38 @@ def view_events_genre(genre):
 @eventsbp.route('/create', methods = ['GET', 'POST'])
 @login_required
 def create():
-#print('Method type: ', request.method)
     form = EventForm()
     proceed = True
+    
     if form.date.data != None and form.date.data < datetime.now():
-        print("You can't create an event in the past!", 'danger')
+        flash("You can't create an event in the past!", 'danger')
         proceed = False
+        
     if form.validate_on_submit() and proceed == True:
         #call the function that checks and returns image    
         db_file_path = check_upload_file(form)
         event = Event(title=form.title.data, 
                 date=form.date.data,
-                place=form.venue.data, 
+                place=form.place.data, 
                 description=form.desc.data,
                 image=db_file_path, 
                 total_tickets=form.total_tickets.data, 
                 tickets_remaining=form.total_tickets.data, 
                 price=form.price.data, 
                 event_status=EventStatus(1).name,
-                event_genre=form.music_genre.data.upper(), 
+                music_genre=form.music_genre.data.upper(), 
                 event_state=form.event_state.data.upper(), 
                 created_on=datetime.now(), 
                 user_id=current_user.id)    
+        
         # add the object to the db session
         db.session.add(event)
         # commit to the database
         db.session.commit()
-        print('Successfully created new music event', 'success')
-        #Always end with redirect when form is valid
-        # return redirect(url_for('main.my_events')) ################## not sure 
-    return render_template('event/eventCreation.html', event_form=form, heading = 'Create a New Events')
+        print('Created new event')
+        flash('Successfully created new music event', 'success')
+        return redirect(url_for('main.my_events'))
+    return render_template('event/create_event.html', event_form=form, heading = 'Create a New Events')
 
 """
 @eventsbp.route('/<id>/update', methods=['GET', 'POST'])

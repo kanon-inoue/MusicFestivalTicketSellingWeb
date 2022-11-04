@@ -63,6 +63,9 @@ class EventForm(FlaskForm):
     image = FileField('Event Image', validators=[
         FileRequired(message='Image cannot be empty'),
         FileAllowed(ALLOWED_FILE, message='Only supports png,jpg,JPG,PNG')])
+    total_tickets = IntegerField('Total Number of Tickets', 
+                                 validators=[InputRequired(message='You must select how many tickets are available for purchase.'), 
+                                             NumberRange(min=1, max=99999, message='Tickets must be between 1 and 99999')])
     price = DecimalField('Cost per ticket: $', validators=[InputRequired(message='You must choose a price per ticket.'), 
             NumberRange(min=0.01, max=999.99, message='Price must be between $1.00 and $999.99')])
     music_genre = SelectField('Choose a genre:', choices=[

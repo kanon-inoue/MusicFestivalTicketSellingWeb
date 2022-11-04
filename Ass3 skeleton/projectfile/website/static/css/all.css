@@ -7,13 +7,23 @@
 }
  */
 
+
+ /*****************************for user.html *************************/
+ .register-container{
+    margin-top: 1rem;
+ }
+
+ .register-items{
+    margin-top: 1rem;
+    min-width: 20rem;
+ }
+
 /*****************************for base.html *************************/
 .item-bar{
     justify-content: space-between;
 }
 
  /*****************************for index.html *************************/
- 
  /******** title text over the image ********/
 .event-title {
     position: relative;

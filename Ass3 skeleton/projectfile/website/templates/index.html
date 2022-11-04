@@ -51,24 +51,6 @@
                            type="button">Search</button>
                   </div>
                </div>
-
-               <!--
-               <div class = "search-section">
-                  <label>Date</label>
-                  <div class="input-group">
-                     <input class = "input-group-md"
-                           type="date" 
-                           id="inputDateSelect" 
-                           name="eventDate" 
-                           value=" " 
-                           min="2022-11-05" 
-                           max="2023-12-31"
-                           action="{{url_for('main.search')}}">
-                     <button class="btn btn-outline-secondary" 
-                           type="button">Search</button>
-                  </div>
-               </div>   
-               -->
                
                <div class = "search-section">
                   <label>State</label>
@@ -182,13 +164,23 @@
                <div class = "col">
                   <div class = "card card3">
                      <img src = "{{event.image}}" alt = "Event Image">
-                     <span class = "badge rounded-pill text-bg-success">{{event.event_status}}</span> 
-                     <!-- 
+
+                      <!-- 
                         if upcoming = text-bg-success
                         if booked = text-bg-primary
                         if Canceled = text-bg-warning
                         if sold out text-bg-danger
                      -->
+                     {% if event.event_status == "UPCOMING" %}
+                        <span class = "badge rounded-pill text-bg-success">{{event.event_status}}</span>
+                     {% elif event.event_status == "BOOKED" %}
+                        <span class = "badge rounded-pill text-bg-primary">{{event.event_status}}</span> 
+                     {% elif event.event_status == "CANCELLED" %}
+                        <span class = "badge rounded-pill text-bg-warning">{{event.event_status}}</span> 
+                     {% else %}
+                        <span class = "badge rounded-pill text-bg-danger">{{event.event_status}}</span> 
+                     {% endif %}
+                    
                      <div class = "card-body card-body3">
                         <div>
                            <h5>{{event.title}}</h5> <!-- event name -->

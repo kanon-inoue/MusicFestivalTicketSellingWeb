@@ -10,12 +10,13 @@
 
  /*****************************for user.html *************************/
  .register-container{
-    margin-top: 1rem;
+    margin: 1rem;
+    justify-content: center;
  }
 
  .register-items{
     margin-top: 1rem;
-    min-width: 20rem;
+    margin-bottom: 2rem;
  }
 
 /*****************************for base.html *************************/

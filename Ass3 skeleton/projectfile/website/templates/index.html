@@ -16,8 +16,9 @@
                <div class = "search-section">
                   <label>Music Type</label>
                   <div class="input-group ">
+                     <!-- NEED TO CHANEG!!!!!!!!!!!!!!!!!!!!!!!!!! -->
                      <select class = "form-select form-select-sm" 
-                        id="inputTpeSelect" 
+                        id="inputTpeSelect" action="{{url_for('main.search')}}"
                         aria-label="Example select with button addon">
                      <option selected>Choose...</option>
                      <option value="1">DANCE</option>
@@ -29,16 +30,17 @@
                      <option value="7">OTHER</option>
                      </select>
                      <button class="btn btn-outline-secondary" 
-                        type="button">Search</button>
+                           type="button">Search</button>
                   </div>
                </div>
 
                <div class = "search-section">
                   <label>Event Status</label>
                   <div class="input-group ">
+                     <!-- NEED TO CHANEG!!!!!!!!!!!!!!!!!!!!!!!!!! -->
                      <select class="form-select form-select-sm" 
-                        id="inputTpeSelect" 
-                        aria-label="Example select with button addon">
+                           id="inputTpeSelect" action="{{url_for('main.search')}}"
+                           aria-label="Example select with button addon">
                      <option selected>Choose...</option>
                      <option value="1">UPCOMING</option>
                      <option value="2">CANCELLED</option>
@@ -46,31 +48,31 @@
                      <option value="4">INACTIVE</option>
                      </select>
                      <button class="btn btn-outline-secondary" 
-                        type="button">Search</button>
+                           type="button">Search</button>
                   </div>
                </div>
 
                <div class = "search-section">
                   <label>Date</label>
                   <div class="input-group">
-                     <input 
-                        class = "input-group-md"
-                        type="date" 
-                        id="inputDateSelect" 
-                        name="eventDate" 
-                        value=" " 
-                        min="2023-01-01" 
-                        max="2023-12-31">
+                     <input class = "input-group-md"
+                           type="date" 
+                           id="inputDateSelect" 
+                           name="eventDate" 
+                           value=" " 
+                           min="2022-11-05" 
+                           max="2023-12-31"
+                           action="{{url_for('main.search')}}">
                      <button class="btn btn-outline-secondary" 
-                        type="button">Search</button>
+                           type="button">Search</button>
                   </div>
                </div>
                
                <div class = "search-section">
                   <label>State</label>
                   <div class="input-group">
-                     <select class="form-select form-select-sm" 
-                        id="inputStateSeclect">
+                     <select class="form-select form-select-sm" action="{{url_for('main.search')}}"
+                           id="inputStateSeclect"> 
                      <option selected>Choose...</option>
                      <option value="Queensland">Queensland</option>
                      <option value="New South Wales">New South Wales</option>
@@ -80,7 +82,7 @@
                      <option value="South Australia">South Australia</option>
                      </select>
                      <button class="btn btn-outline-secondary" 
-                        type="button">Search</button>
+                           type="button">Search</button>
                   </div>
                </div>
             </form>

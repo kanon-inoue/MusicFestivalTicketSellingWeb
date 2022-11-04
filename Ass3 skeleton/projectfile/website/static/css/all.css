@@ -7,8 +7,103 @@
 }
  */
 
- /* for base.html */
+
+ /*****************************for index.html *************************/
  
+ /******** title text over the image ********/
+.event-title {
+    position: relative;
+    text-align: center;
+    background-image: url("/static/images/Home.jpg");
+    background-size: cover;
+    background-position: center;
+    height: 90vh;
+}
+
+.text-block {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: floralwhite;
+}
+
+.search-area {
+    margin: 2rem 0rem;
+}
+
+.search-sections {
+    margin: 2rem;
+    display: flex;
+    justify-content: center;
+}
+
+.search-section {
+    width: auto;
+    margin: 0rem 1rem;
+}
+
+.search-section input {
+    padding: 0rem 1rem;
+}
+
+
+/******** CARD GRID ********/
+.upcoming-title {
+    margin-top: 3rem;
+}
+
+.card3 img {
+    object-fit: cover;
+    height: 15rem;
+    position: relative;
+}
+
+@media screen and (max-width: 992px) {
+    .card3 img {
+        object-fit: cover;
+        height: 10rem;
+        position: relative;
+    }
+}
+
+.card3 span {
+    position: absolute;
+    margin-top: 1rem;
+    margin-left: 1rem;
+}
+
+@media screen and (max-width: 992px) {
+    .card3 span {
+        position: absolute;
+        margin-top: 1rem;
+        margin-left: 1rem;
+    }
+}
+
+.card-body3 {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.card-body3 h5 {
+    margin: 1rem 0rem;
+}
+
+.event-list3 {
+    margin: 2rem 0rem;
+}
+
+
+
+
+
+
+
+
+
+
 .event-list-heading{
     margin: 1rem 0rem;
 }
@@ -130,86 +225,9 @@
     justify-content: space-between;
 }
 
-/******** title text over the image ********/
-.event-title {
-    position: relative;
-    text-align: center;
-    background-image: url("/static/images/Home.jpg");
-    background-size: cover;
-    background-position: center;
-    height: 90vh;
-}
 
-.text-block {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    color: floralwhite;
-}
 
-.search-area {
-    margin: 2rem 0rem;
-}
 
-.search-sections {
-    margin: 2rem;
-    display: flex;
-    justify-content: center;
-}
 
-.search-section {
-    width: auto;
-    margin: 0rem 1rem;
-}
 
-.search-section input {
-    padding: 0rem 1rem;
-}
 
-/******** CARD GRID ********/
-.upcoming-title {
-    margin-top: 3rem;
-}
-
-.card3 img {
-    object-fit: cover;
-    height: 15rem;
-    position: relative;
-}
-
-@media screen and (max-width: 992px) {
-    .card3 img {
-        object-fit: cover;
-        height: 10rem;
-        position: relative;
-    }
-}
-
-.card3 span {
-    position: absolute;
-    margin-top: 1rem;
-    margin-left: 1rem;
-}
-
-@media screen and (max-width: 992px) {
-    .card3 span {
-        position: absolute;
-        margin-top: 1rem;
-        margin-left: 1rem;
-    }
-}
-
-.card-body3 {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.card-body3 h5 {
-    margin: 1rem 0rem;
-}
-
-.event-list3 {
-    margin: 2rem 0rem;
-}

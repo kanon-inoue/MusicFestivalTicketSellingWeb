@@ -7,6 +7,10 @@
 }
  */
 
+/*****************************for base.html *************************/
+.item-bar{
+    justify-content: space-between;
+}
 
  /*****************************for index.html *************************/
  
@@ -96,14 +100,8 @@
 }
 
 
-
-
-
-
-
-
-
-
+/*****************************for create_event.html *************************/
+/*
 .event-list-heading{
     margin: 1rem 0rem;
 }
@@ -131,9 +129,11 @@
     margin: 1rem 3rem;
 }
 
+ */
 
-/* event detail */
 
+/*****************************for event_setails.html *************************/
+/*
 .main2 {
     display: flex;
     flex-direction: column;
@@ -217,17 +217,4 @@
 .input-group {
     margin: 1rem 0rem;
 }
-
-
-/* homeLanding */
-
-.item-bar{
-    justify-content: space-between;
-}
-
-
-
-
-
-
-
+*/

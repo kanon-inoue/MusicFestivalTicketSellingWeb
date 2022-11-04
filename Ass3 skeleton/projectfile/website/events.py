@@ -38,7 +38,7 @@ def view_events_state(state_name):
     return render_template('index.html', heading=state_name, events=state_events)
 
 @eventsbp.route('/view_all/<genre>')
-def view_events(genre):
+def view_events_genre(genre):
     genre = genre.upper()
     music_genre_list = Event.query.filter_by(music_genre=genre).filter(
         Event.event_status != 'INACTIVE').all()

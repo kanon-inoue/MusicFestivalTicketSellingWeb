@@ -16,11 +16,11 @@ class EventStatus(Enum):
     INACTIVE = 4
 
 # need to change the order and variable names
-class MusicGenre(Enum):
+class EventGenre(Enum):
     DANCE = 1
     JAZZ = 2
     POP = 3
-    REGGAE = 4
+    REGGAE = 4 
     ROCK = 5
     CLASSIC = 6
     OTHER = 7
@@ -35,10 +35,6 @@ class EventState(Enum):
     SOUTH_AUSTRALIA = 6
 
 
-
-class Anonymous(AnonymousUserMixin):
-    def __init__(self):
-        self.name = 'Guest'
 
 class User(UserMixin, db.Model):
     __tablename__='users' 
@@ -74,7 +70,7 @@ class Event(db.Model):
     tickets_remaining = db.Column(db.Integer, nullable=False)
     price = db.Column(db.Float, nullable=False)
     event_status = db.Column(db.Enum(EventStatus))
-    event_genre = db.Column(db.Enum(MusicGenre))
+    event_genre = db.Column(db.Enum(EventGenre))
     event_state = db.Column(db.Enum(EventState))
     
 

@@ -1,5 +1,5 @@
 # Imports to access functions and add-ons
-from website.models import MusicGenre, EventState, EventStatus
+from website.models import EventGenre, EventState, EventStatus
 from flask_wtf import FlaskForm
 from wtforms.fields import TextAreaField, SubmitField, StringField, PasswordField, BooleanField, DecimalField, SelectField, IntegerField, DateTimeLocalField
 from wtforms.validators import InputRequired, Length, Email, EqualTo, NumberRange, Regexp, ValidationError
@@ -68,8 +68,9 @@ class EventForm(FlaskForm):
                                              NumberRange(min=1, max=99999, message='Tickets must be between 1 and 99999')])
     price = DecimalField('Cost per ticket: $', validators=[InputRequired(message='You must choose a price per ticket.'), 
             NumberRange(min=0.01, max=999.99, message='Price must be between $1.00 and $999.99')])
-    music_genre = SelectField('Choose a genre:', choices=[
-                              e.name.title() for e in MusicGenre], 
+    
+    event_genre = SelectField('Choose a genre:', choices=[
+                              e.name.title() for e in EventGenre], 
                               validators=[InputRequired(message='Your event must have a music genre')])
     event_state = SelectField('Choose a state:', choices=[
                              e.name.title() for e in EventState], validators=[InputRequired(message='Your event must have a state it is located in')])

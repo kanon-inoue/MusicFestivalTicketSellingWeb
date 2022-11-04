@@ -78,7 +78,7 @@ def create():
         print('Created new event')
         flash('Successfully created new music event', 'success')
         return redirect(url_for('main.my_events'))
-    return render_template('event/create_event.html', event_form=form, heading = 'Create a New Events')
+    return render_template('event/create_event.html', event_form=form, heading = 'Create a New Event')
 
 """
 @eventsbp.route('/<id>/update', methods=['GET', 'POST'])

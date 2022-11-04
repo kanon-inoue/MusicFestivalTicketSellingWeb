@@ -68,6 +68,10 @@
     margin-top: 3rem;
 }
 
+/* .card3 {
+    position: relative;
+} */
+
 .card3 img {
     object-fit: cover;
     height: 15rem;
@@ -86,6 +90,8 @@
     position: absolute;
     margin-top: 1rem;
     margin-left: 1rem;
+    /* top: 0;
+    left: 0; */
 }
 
 @media screen and (max-width: 992px) {
@@ -106,9 +112,9 @@
     margin: 1rem 0rem;
 }
 
-.event-list3 {
+/* .event-list3 {
     margin: 2rem 0rem;
-}
+} */
 
 
 /*****************************for create_event.html *************************/

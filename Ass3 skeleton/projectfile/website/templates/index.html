@@ -42,10 +42,10 @@
                            id="inputTpeSelect" 
                            aria-label="Example select with button addon">
                      <option selected>Choose...</option>
-                     <option value="1">UPCOMING</option>
-                     <option value="2">CANCELLED</option>
-                     <option value="3">BOOKED</option>
-                     <option value="4">INACTIVE</option>
+                     <option value="1">OPEN</option>
+                     <option value="2">UNPUBLISHED</option>
+                     <option value="3">SOLD-OUT</option>
+                     <option value="4">CANCELLED</option>
                      </select>
                      <button class="btn btn-outline-secondary" 
                            type="button">Search</button>
@@ -171,7 +171,7 @@
                         if Canceled = text-bg-warning
                         if sold out text-bg-danger
                      -->
-                     {% if event.event_status == "UPCOMING" %}
+                     {% if event.event_status == "OPEN" %}
                         <span class = "badge rounded-pill text-bg-success">{{event.event_status}}</span>
                      {% elif event.event_status == "BOOKED" %}
                         <span class = "badge rounded-pill text-bg-primary">{{event.event_status}}</span> 

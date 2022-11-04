@@ -27,21 +27,21 @@ def show(id):
 
 @eventsbp.route('/view_all')
 def view_all_events():
-    events = Event.query.filter(Event.event_status != 'INACTIVE').all()
+    events = Event.query.filter(Event.event_status != 'UNPUBLISHED').all()
     return render_template('index.html', heading='All Events', events=events)
 
 @eventsbp.route('/view_all/state/<state_name>')
 def view_events_state(state_name):
     state_name = state_name.upper()
     state_events = Event.query.filter_by(event_state=state_name).filter(
-        Event.event_status != 'INACTIVE').all()
+        Event.event_status != 'UNPUBLISHED').all()
     return render_template('index.html', heading=state_name, events=state_events)
 
 @eventsbp.route('/view_all/<genre>')
 def view_events_genre(genre):
     genre = genre.upper()
     event_genre_list = Event.query.filter_by(event_genre=genre).filter(
-        Event.event_status != 'INACTIVE').all()
+        Event.event_status != 'UNPUBLISHED').all()
     return render_template('index.html', heading=genre, events=event_genre_list)
 
 @eventsbp.route('/create', methods = ['GET', 'POST'])
@@ -68,7 +68,6 @@ def create():
                 event_status=EventStatus(1).name,
                 event_genre=form.event_genre.data.upper(), 
                 event_state=form.event_state.data.upper(), 
-                created_on=datetime.now(), 
                 user_id=current_user.id)    
         
         # add the object to the db session

@@ -10,10 +10,10 @@ class Anonymous(AnonymousUserMixin):
 
 # need to change the order and variable names
 class EventStatus(Enum):
-    UPCOMING = 1
-    CANCELLED = 2
-    BOOKED = 3
-    INACTIVE = 4
+    OPEN = 1
+    UNPUBLISHED = 2
+    SOLD_OUT = 3
+    CANCELLED = 4
 
 # need to change the order and variable names
 class EventGenre(Enum):

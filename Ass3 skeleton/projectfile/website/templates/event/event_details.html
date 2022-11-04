@@ -1,4 +1,3 @@
-
 {% extends 'base.html' %}
 {% import "bootstrap/form.html" as wtf %}
 {% block content %}
@@ -52,6 +51,7 @@
                             <p class='card-text'>{{event.description}}</p>
                         </div>
                     </div>
+
                     <!-- Create Ticket Boundary in terms of ticket availability -->
                     <div class='row'>
                         {% if event.tickets_remaining == 0 %}
@@ -80,6 +80,7 @@
                             </div>
                             {% endif %}
                     </div>
+                    
                     <!-- Modal (To be able to book an event)-->
                     <div class='modal fade' id='bookingModal' tabindex='-1' aria-labelledby='bookingModalLabel'
                         aria-hidden='true'>
@@ -117,6 +118,7 @@
             </div>
         </div> 
     </div>
+
     <!-- Comments -->
     <div class='row'>
         <div class='col'>
@@ -142,6 +144,7 @@
                     %p')}}</span>
             </div>
         </div>
+
         <!--This shows pervious comments -->
         <div class='col-sm-12 col-md-9 col-lg-10 mt-auto'>
             {{comment.text}}

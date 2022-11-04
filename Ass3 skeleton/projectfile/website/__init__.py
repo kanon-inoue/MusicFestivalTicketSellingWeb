@@ -53,7 +53,7 @@ def create_app():
             name = 'Guest'
         else:
             name = current_user.name
-        from website.models import Event, EventState, MusicGenre, EventStatus
+        from website.models import Event, EventState, EventGenre, EventStatus
         all_events = Event.query.all()
         # On launch, check if there are any events that are now in the past
         # and if so, change them to Inactive
@@ -64,7 +64,7 @@ def create_app():
         db.session.commit()
         dropdown_events = Event.query.group_by(Event.title).filter(
         Event.event_status != 'INACTIVE').all()
-        genres = MusicGenre
+        genres = EventGenre
         states = EventState
         return(dict(events_list=all_events, artist_list=dropdown_events,
                     genres=genres, states=states,

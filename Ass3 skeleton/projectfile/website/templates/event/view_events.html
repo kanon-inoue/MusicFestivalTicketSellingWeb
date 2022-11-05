@@ -21,7 +21,7 @@
           <p class="card-text">
           <h3>{{event.date.strftime('%B %d, %Y @ %I:%M
             %p')}} - <strong>{{event.event_status.name.title()}}</strong></h3>
-          <h3>{{event.venue}}, {{event.event_city.name.title()}}</h3>
+          <h3>{{event.venue}}, {{event.event_state.name.title()}}</h3>
           <h6><strong>Event ID: </strong>{{event.id}}<strong> Created On:
             </strong>{{event.created_on.strftime('%d/%m/%Y')}} <strong>Genre:
             </strong>{{event.event_genre.name.title()}}</h6>

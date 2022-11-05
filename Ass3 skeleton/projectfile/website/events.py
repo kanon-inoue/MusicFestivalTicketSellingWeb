@@ -1,7 +1,7 @@
 from flask import Blueprint, render_template, redirect, url_for, current_app, flash
 from flask_login.utils import login_required
-from .models import Event, Comment, EventStatus, Booking,EventGenre
-from .forms import EventForm, CommentForm, BookingForm #EditEventForm
+from .models import Event, Comment, EventStatus, Booking, EventGenre
+from .forms import EventForm, CommentForm, BookingForm, EditEventForm
 from . import db
 import os
 from werkzeug.utils import secure_filename
@@ -9,7 +9,6 @@ from flask_login import current_user
 from datetime import datetime
 
 eventsbp = Blueprint('events', __name__, url_prefix='/event')
-
 
 @eventsbp.route('/<id>')
 def show(id):
@@ -19,11 +18,9 @@ def show(id):
     booking_form = BookingForm()
     if booking_form.validate_on_submit():
         return redirect(url_for('main.index'))
-    event_details = Event.query.filter_by(title=event.title).all()
     return render_template('event/event_details.html', 
                 event=event, form=comments_form,
-                booking_form=booking_form, 
-                event_details=event_details)
+                booking_form=booking_form)
 
 @eventsbp.route('/view_all')
 def view_all_events():
@@ -79,23 +76,21 @@ def create():
         return redirect(url_for('main.my_events'))
     return render_template('event/create_event.html', event_form=form, heading = 'Create a New Event')
 
-"""
 @eventsbp.route('/<id>/update', methods=['GET', 'POST'])
 @login_required
 def update_event(id):
-    event = Events.query.get(id)
+    event = Event.query.get(id)
     # Provide the old event information in the form fields
     # as a reminder to the user
     form = EditEventForm(
         title=event.title,
         date=event.date,
-        headliner=event.headliner,
-        venue=event.venue,
+        place=event.place,
         desc=event.description,
         total_tickets=event.total_tickets,
         price=event.price,
         event_status=event.event_status,
-        music_genre=event.music_genre.name.title(),
+        event_genre=event.event_genre.name.title(),
         event_state=event.event_state.name.title())
     # First check the current user is editing
     # an event they created and not someone else's
@@ -109,28 +104,22 @@ def update_event(id):
         if (form.image.data is not None):
             # call the function that checks and returns image
             db_file_path = check_upload_file(form)
-            Events.query.filter_by(id=id).update(
+            Event.query.filter_by(id=id).update(
                 {'image': db_file_path}, synchronize_session='evaluate')
-        Events.query.filter_by(id=id).update(
+            Event.query.filter_by(id=id).update(
             {'title': form.title.data, 
             'date': form.date.data, 
-            'headliner': form.headliner.data,
-            'venue': form.venue.data, 
+            'place': form.place.data, 
             'description': form.desc.data,
-            'total_tickets': form.total_tickets.data,
-            'tickets_remaining': form.total_tickets.data-event.tickets_booked,
             'price': form.price.data,
-            'event_status': form.event_status.data.upper(), 
-            'music_genre': form.music_genre.data.upper(),
-            'event_state': form.event_state.data.upper()}, 
+            'event_status': form.event_status.data.upper(),}, 
             synchronize_session='evaluate')
         # commit to the database
         db.session.commit()
         print('Successfully updated event!', 'success')
         # end with redirect when form is valid
         #return redirect(url_for('main.my_events'))
-    return render_template('event/eventCreation.html', event_form=form, event=event, heading='Edit Event')
-"""
+    return render_template('event/create_event.html', event_form=form, event=event, heading='Edit Event')
 
 @eventsbp.route('/<id>/delete', methods=['GET', 'POST'])
 @login_required

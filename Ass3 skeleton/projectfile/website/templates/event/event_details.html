@@ -2,7 +2,7 @@
 {% import "bootstrap/form.html" as wtf %}
 {% block content %}
 
-<!-- Setting up the upcoming concerts for the artist-->
+<!-- Setting up the upcoming events-->
 <main class = "main2">
     <section>
         <div class = "event-detail"> 
@@ -18,25 +18,23 @@
 
         <article class = "detail-container">
             <div class = "detail-text">
-                {% for event in events %}
                 <h3>{{event.title}}</h3>
                 <dl class = "row">
                     <dt class="col-sm-3">Date</dt>
-                    <dd class="col-sm-9">{{event.date}}</dd>
-                    
-                    <dt class="col-sm-3">Place</dt>
-                    <dd class="col-sm-9">{{event.state}}</dd>
+                    <dd class="col-sm-9">{{event.date.strftime('%d/%m/%y %I:%M%p')}} </dd>
+
+                    <dt class="col-sm-3">Location</dt>
+                    <dd class="col-sm-9">{{event.place}}, {{event.event_state.name.title()}}</dd>
 
                     <dt class="col-sm-3">Music Genre</dt>
-                    <dd class="col-sm-9">{{event.music_genre}}</dd>
+                    <dd class="col-sm-9">{{event.event_genre.name.title()}}</dd>
 
                     <dt class="col-sm-3">Price</dt>
-                    <dd class="col-sm-9">{{event.price}}</dd>
+                    <dd class="col-sm-9">{{"$%.2f"|format(event.price)}} ea.</dd>
 
                     <dt class="col-sm-3">Description</dt>
                     <dd class="col-sm-9">{{event.description}}</dd>
                 </dl>
-                {% endfor %}
             </div>
 
             <div class = "modal-button">
@@ -56,52 +54,47 @@
                     <div class = "modal-container">
                         <div class="modal-header">
                             <h5 class="modal-title" id="bookingModalLabel">Ticket Booking</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            <button type="button" class="btn btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
 
                         <div class="modal-body">
-                            <p>Input your informaion and number of tickets you buy.</p>
+                            <p>Input the desired number of tickets you want to buy.</p>
                             
-                            <div class="input-group">
-                                <span class="input-group-text">First and last name:</span>
-                                <input type="text" aria-label="First name" class="form-control">
-                                <input type="text" aria-label="Last name" class="form-control">
-                            </div>  
-                          
-                            <div class = "input-group">
-                                <span class="input-group-text">Phone number:</span>
-                                <input type="text" aria-label="phone num" class="form-control">
+                            <p><strong>Date:</strong> {{event.date.strftime('%d/%m/%y %I:%M%p')}}</p>
+                            <p><strong>Location:</strong> {{event.place}}, {{event.event_state.name.title()}}</p>
+                            <p><strong>Cost per ticket:</strong> {{"$%.2f"|format(event.price)}}</p>
+                            <div class='row'>
+                                {% if event.tickets_remaining == 0 %}
+                                <div class='col-6'>
+                                    <h2><strong>{{"$%.2f"|format(event.price)}}</strong> ea.</h2>
+                                    <p style="color:red"><strong>Sorry, sold out!</strong></p>
+                                </div>
+                                {% elif event.event_status.name == 'UNPUBLISHED' or event.event_status.name == 'CANCELLED' %}
+                                <div class='col-6'>
+                                    <h2><strong>{{"$%.2f"|format(event.price)}}</strong> ea.</h2>
+                                </div>
+                                {% else %}
+                                {% if event.tickets_remaining <= 100 and event.tickets_remaining> 0 %}
+                                    <div class='row'>
+                                        <p><strong>Tickets remaining:</strong> {{event.tickets_remaining}}</p>
+                                    </div>
+                                    {% endif %}
+                                    
+                                {% endif %}
                             </div>
-                            
-                            <div class="input-group mb-3">
-                                <input type="text" class="form-control" placeholder="Email" aria-label="Email">
-                                <span class="input-group-text">@</span>
-                                <input type="text" class="form-control" placeholder="Server" aria-label="Server">
-                            </div> 
-                           
-                            <div class="input-group">
-                                <input placeholder="Number of Ticket(s)" 
-                                class = "form-control" aria-label = "ticketNum"
-                                required type="number" value="" min="1" max="30">
-                            </div>
-                      
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" id="consent-checking">
-                                <label class="form-check-label" for="consent-checking">
-                                    I agree with the privacy policy.
-                                </label>
-                            </div>
+                            {{wtf.render_form(booking_form, "/event/{0}/book".format(event.id))}}
                         </div>
                             <div class="modal-footer">
-                            <a href="#"
-                                role="button" class="btn btn-outline-success" tabindex="-1" aria-disabled="true">
-                                Booking</a>
                             <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal">Cancel</button>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+
+        
+        
+
 
         
         <section>
@@ -129,7 +122,7 @@
                     <div class ="card-body card-body2 p-4">
                         <div class = "d-flex flex-start w-100 align-items-center">
                             <img class = "avatar rounded-circle shadow-1-strong me-3 flex-shrink-0"
-                                    src = "Ass3_skelton/website/static/images/user3.jpg" 
+                                    src = "/website/static/images/event1.jpg" 
                                     alt = "User2's Icon Image">
                             <h6 class = "card-title card-title2 col flex-grow-1">{{comment.user.name}}</h6>
                         </div>

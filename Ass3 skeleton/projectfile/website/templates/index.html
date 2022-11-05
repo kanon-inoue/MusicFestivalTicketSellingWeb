@@ -80,130 +80,30 @@
             <h3 class = "text-center">Upcoming Events</h3>
          </div>
          <div class = "event-list event-list3 container">
-            <div class = "row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
-               <!-- Event 1 -->
-               <div class = "col">
-                  <div class = "card card3">
-                     <img src = "/static/images/event1.jpg" alt = "Event Image 1">
-                     <span class = "badge rounded-pill text-bg-success">UPCOMING</span>
-                     <div class = "card-body card-body3">
-                        <div>
-                           <h5>Brisbane EDM Festival</h5>
-                           <article class = "row">
-                              <h9 class = "card-subtitle card-subtitle3 mb-2 text-muted">@Brisbane, QLD</h9>
-                              <h9 class = "card-subtitle card-subtitle3 mb-2 text-muted">September 29th, 2022 7pm</h9>
-                              <h9 class = "card-subtitle card-subtitle3 mb-2 text-muted">AU$80</h9>
-                           </article>
-                        </div>
-                        <a href = "event/event1_example.html"
-                           class = "btn btn-outline-secondary"
-                           tabindex="-1"
-                           role = "button"
-                           aria-disabled="true">View</a>
-                     </div>
-                     <div class = "card-footer text-muted text-center">
-                        3 days ago
-                     </div>
-                  </div>
-               </div>
-
-               <!-- Event 2 -->
-               <div class = "col">
-                  <div class = "card card3">
-                     <img src = "/static/images/event2.jpg" alt = "Event Image 2">
-                     <span class = "badge rounded-pill text-bg-primary">BOOKED</span>
-                     <div class = "card-body card-body3">
-                        <div>
-                           <h5>Brisbane CLASSIC Festival</h5>
-                           <article class = "row">
-                              <h9 class = "card-subtitle card-subtitle3 mb-2 text-muted">@Brisbane, QLD</h9>
-                              <h9 class = "card-subtitle card-subtitle3 mb-2 text-muted">September 30th, 2022 7pm</h9>
-                              <h9 class = "card-subtitle card-subtitle3 mb-2 text-muted">AU$100</h9>
-                           </article>
-                        </div>
-                        <a href = "#"
-                           class = "btn btn-outline-secondary"
-                           tabindex="-1"
-                           role = "button"
-                           aria-disabled="true">View</a>
-                     </div>
-                     <div class = "card-footer text-muted text-center">
-                        4 days ago
-                     </div>
-                  </div>
-               </div>
-
-               <!-- Event 3 -->
-               <div class = "col">
-                  <div class = "card card3">
-                     <img src = "/static/images/event3.jpg" alt = "Event Image 3">
-                     <span class = "badge rounded-pill text-bg-warning">CANCELLED</span>
-                     <div class = "card-body card-body3">
-                        <div>
-                           <h5>RAVE in GOLD COAST</h5>
-                           <article class = "row">
-                              <h9 class = "card-subtitle card-subtitle3 mb-2 text-muted">@Brisbane, QLD</h9>
-                              <h9 class = "card-subtitle card-subtitle3 mb-2 text-muted">September 24th, 2022 10am</h9>
-                              <h9 class = "card-subtitle card-subtitle3 mb-2 text-muted">AU$200</h9>
-                           </article>
-                        </div>
-                        <a href = "#"
-                           class = "btn btn-outline-secondary"
-                           tabindex="-1"
-                           role = "button"
-                           aria-disabled="true">View</a>
-                     </div>
-                     <div class = "card-footer text-muted text-center">
-                        15 days ago
-                     </div>
-                  </div>
-               </div>
-
-               <!-- Created event by users -->
-               {% for event in all_events %}
-               <div class = "col">
-                  <div class = "card card3">
-                     <img src = "{{event.image}}" alt = "Event Image">
-
-                      <!-- 
-                        if upcoming = text-bg-success
-                        if booked = text-bg-primary
-                        if Canceled = text-bg-warning
-                        if sold out text-bg-danger
-                     -->
-                     {% if event.event_status == "OPEN" %}
-                        <span class = "badge rounded-pill text-bg-success">{{event.event_status}}</span>
-                     {% elif event.event_status == "BOOKED" %}
-                        <span class = "badge rounded-pill text-bg-primary">{{event.event_status}}</span> 
-                     {% elif event.event_status == "CANCELLED" %}
-                        <span class = "badge rounded-pill text-bg-warning">{{event.event_status}}</span> 
+            
+            <!--Create a card for each event-->
+            <div class='row'>
+               {% for event in current_events %}
+               <div class='col-12 col-sm-6 col-md-4 col-lg-3 d-flex align-items-stretch'>
+               <div class='card mt-4'>
+                  <img src="{{event.image}}" class='card-img-top img-fluid' alt=''>
+                  <div class='card-body d-flex flex-column'>
+                     <h4 class='card-title'><a href='{{url_for("events.show", id=event.id)}}'>{{event.title}}</a></h4>
+                     {% if event.tickets_remaining == 0 %}
+                     <h5 class='card-subtitle mb-2' style="color:red">{{event.event_status.name.title()}}</h5>
+                     <h6 class='card-subtitle mb-2'>{{event.event_genre.name.title()}}</h6>
                      {% else %}
-                        <span class = "badge rounded-pill text-bg-danger">{{event.event_status}}</span> 
+                     <h5 class='card-subtitle mb-2' style="color:green">{{event.event_status.name.title()}}</h5>
+                     <h6 class='card-subtitle mb-2'>{{event.event_genre.name.title()}}</h6>
                      {% endif %}
-                    
-                     <div class = "card-body card-body3">
-                        <div>
-                           <h5>{{event.title}}</h5> <!-- event name -->
-                           <article class = "row">
-                              <h9 class = "card-subtitle card-subtitle3 mb-2 text-muted">@{{event.event_state}}</h9>
-                              <h9 class = "card-subtitle card-subtitle3 mb-2 text-muted">{{event.date}}</h9>
-                              <h9 class = "card-subtitle card-subtitle3 mb-2 text-muted">{{event.price}}</h9>
-                           </article>
-                        </div>
-                        <a href = "{{url_for('event.show', id=event.id)}}"
-                           class = "btn btn-outline-secondary"
-                           tabindex="-1"
-                           role = "button"
-                           aria-disabled="true">View</a>
-                     </div>
-                     <div class = "card-footer text-muted text-center">
-                        {{event.created_on}}
-                     </div>
+                     <p id='index-cards' class='card-text'>{{event.description}}</p>
+                     <a href='{{url_for("events.show", id=event.id)}}' class='mt-auto btn btn-outline-dark'>See more</a>
                   </div>
-               </div>
-               {% endfor %}
+          </div>
+      </div>
+      {% endfor %}
+  </div>
 
-            </div>
             
          </div>
       </div>

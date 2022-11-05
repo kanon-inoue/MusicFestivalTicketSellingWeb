@@ -3,160 +3,6 @@
 {% block content %}
 
 <!-- Setting up the upcoming concerts for the artist-->
-<div id='page-container' class='container'>
-    <div class='row'>
-        <div class='col-sm-12 col-md-6'>
-            <figure class="figure">
-                <img src='{{event.image}}' id='hero-image' class='mx-auto d-block img-fluid shadow-lg p-1 mb-2' alt=''>
-                <figcaption class="figure-caption">{{event.headliner}}</figcaption>
-            </figure>
-        </div>
-        <div class='col-sm-12 col-md-6'>
-            <h2><strong>Upcoming Events by This Artist:</strong></h2>
-            <div class='info_box'>
-                {% for artist_event in artist_events %}
-                <p><strong><a href='{{url_for("events.show", id=artist_event.id)}}'>{{artist_event.title}}</strong></a>
-                </p>
-                <p>{{artist_event.date.strftime('%B %d, %Y @ %I:%M
-                    %p')}}</p>
-                <p>{{artist_event.venue}}, <strong>{{artist_event.event_city.name.title()}}</strong></p>
-                <hr>
-                {% endfor %}
-            </div>
-        </div>
-    </div>
-  
-     <!-- Setting up more event details about the artist's upcoming events-->
-     <div class='row'>
-        <div class='col'>
-            <div class='card'>
-                <div class='card-body'>
-                    <div class='row'>
-                        <h1 class='card-event-title'>{{event.title}}</h1>
-                        <div class='col-xs-12 col-md-6'>
-                            <h3>{{event.date.strftime('%B %d, %Y @ %-I:%M
-                                %p')}} - <strong>{{event.event_status.name.title()}}</strong></h3>
-                            <div class='row'>
-                                <h4>{{event.venue}}, {{event.event_city.name.title()}}</h4>
-                            </div>
-                            <div class='row'>
-                                <div class='col-xs-12'>
-                                    <h6><strong>Genre: </strong>{{event.event_genre.name.title()}}</h6>
-                                    <h6><strong>Created On: </strong>{{event.created_on.strftime('%d/%m/%Y')}}</h6>
-                                </div>
-                            </div>
-                        </div>
-                        <div class='col-xs-12 col-md-6'>
-                            <h4><strong>Event Description:</strong></h4>
-                            <p class='card-text'>{{event.description}}</p>
-                        </div>
-                    </div>
-
-                    <!-- Create Ticket Boundary in terms of ticket availability -->
-                    <div class='row'>
-                        {% if event.tickets_remaining == 0 %}
-                        <div class='col-6'>
-                            <h2><strong>{{"$%.2f"|format(event.price)}}</strong> ea.</h2>
-                            <p style="color:red"><strong>Sorry, sold out!</strong></p>
-                        </div>
-                        {% elif event.event_status.name == 'INACTIVE' or event.event_status.name == 'CANCELLED' %}
-                        <div class='col-6'>
-                            <h2><strong>{{"$%.2f"|format(event.price)}}</strong> ea.</h2>
-                        </div>
-                        {% else %}
-                        {% if event.tickets_remaining <= 100 and event.tickets_remaining> 0 %}
-                            <div class='row'>
-                                <p style="color:red"><strong>Hurry, only {{event.tickets_remaining}} tickets
-                                        left!</strong></p>
-                            </div>
-                            {% endif %}
-                            <div class='col-6'>
-                                <h2><strong>{{"$%.2f"|format(event.price)}}</strong> ea.</h2>
-                            </div>
-                            <div class='col-6'>
-                                <button id='book-button' type='button' class='btn btn-dark float-end'
-                                    data-bs-toggle='modal' data-bs-target='#bookingModal'>
-                                    Book Tickets</button>
-                            </div>
-                            {% endif %}
-                    </div>
-                    
-                    <!-- Modal (To be able to book an event)-->
-                    <div class='modal fade' id='bookingModal' tabindex='-1' aria-labelledby='bookingModalLabel'
-                        aria-hidden='true'>
-                        <div class='modal-dialog'>
-                            <div class='modal-content'>
-                                <div class='modal-header'>
-                                    <h5 class='modal-title' id='bookingModalLabel'>{{event.title}}</h5>
-                                    <button type='button' class='btn-close' data-bs-dismiss='modal'
-                                        aria-label='Close'></button>
-                                </div>
-                                <div class='modal-body'>
-                                    <strong>Important Info:</strong>
-                                    <p><strong>{{event.venue}}</strong> Bag Restrictions: Please note backpacks
-                                        of
-                                        any type and size
-                                        are not permitted into <strong>{{event.venue}}</strong>, including
-                                        handbags
-                                        that can be worn
-                                        as a backpack. All other bags must be smaller than A5.</p>
-                                    <strong>Date:</strong>
-                                    <p>{{event.date.strftime('%B %d, %Y @ %I:%M
-                                        %p')}}</p>
-                                    <strong>Venue:</strong>
-                                    <p>{{event.venue}}</p>
-                                    <strong>Event Status:</strong>
-                                    <p>{{event.event_status.name.title()}}</p>
-                                    <strong>Cost per ticket:</strong>
-                                    <p>{{"$%.2f"|format(event.price)}}</p>
-                                    {{wtf.render_form(booking_form, "/events/{0}/book".format(event.id))}}
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div> 
-    </div>
-
-    <!-- Comments -->
-    <div class='row'>
-        <div class='col'>
-            <br>
-            <h4>Comments</h4>
-        </div>
-    </div>
-    <div class='row'>
-        <div class="col">
-            {{wtf.render_form(form,"/events/{0}/comment".format(event.id))}}
-        </div>
-    </div>
-    <br>
-    {% for comment in event.comments %}
-    <div class='row border-bottom'>
-        <div class='col-sm-12 col-md-3 col-lg-2'>
-            <div class='row'>
-                <b>{{comment.user.name}}</b>
-            </div>
-            <div class='row'>
-                <span class="ml-2">
-                    {{comment.created_at.strftime('%d/%m/%y %I:%M
-                    %p')}}</span>
-            </div>
-        </div>
-
-        <!--This shows pervious comments -->
-        <div class='col-sm-12 col-md-9 col-lg-10 mt-auto'>
-            {{comment.text}}
-        </div>
-    </div>
-    {% endfor %}
-</div>
-{% endblock %}
-
-
-
-<!--
 <main class = "main2">
     <section>
         <div class = "event-detail"> 
@@ -257,76 +103,46 @@
             </div>
         </div>
 
+        
         <section>
             <div class = "adding-comment-section">
                 <div class="card card2">
                     <div class="card-body card-body2 p-4">
                         <div class="d-flex flex-start align-items-center">
                             <img class = "avatar-user rounded-circle shadow-1-strong me-3 flex-shrink-0"
-                                    src = "{{user1.image}}" alt = "User1's Icon Image">
-
-                            <label class = "flex-grow-1"
-                                    for = "addingComment">Add your comment</label>
+                                    src = "Ass3_skelton/website/static/images/user3.jpg" alt = "User1's Icon Image">
                         </div>
-                        <form>
-                            <div class="form-group">
-                                <textarea class="form-control adding-comment" 
-                                        id="addingComment" 
-                                        rows="3">
-                                </textarea>
-                            </div>
-                        </form>
-                        <div class = "text-end text-end2">
-                            <button class = "btn btn-outline-danger">Submit</button>
+                        <div class="col">
+                            {{wtf.render_form(form,"/event/{0}/comment".format(event.id))}}
                         </div>
                     </div>
                 </div>
             </div>
         </section>
-            
+        
         <section>
+            <br>
             <div class = "comment-section">
                 <h3 class = "container-fluid text-start">Comments</h3>
-                <div class = "card card2">
-                    <div class ="card-body card-body2 p-4">
-                        <div class = "d-flex flex-start w-100 align-items-center">
-                            <img class = "avatar rounded-circle shadow-1-strong me-3 flex-shrink-0"
-                                    src = "{{user2.image}}" 
-                                    alt = "User2's Icon Image">
-                            <h6 class = "card-title card-title2 col flex-grow-1">@abc123</h6>
-                        </div>
-                        <p class = "card-text card-text2">
-                                I've been to their event once before and I could not park there.
-                                It is possible to park at the venue this time? Thank you!
-                        </p>
-                        <time class="card-subtitle card-subtitle2 mb-2 text-muted">9:13 am</time>
-                        <div class = "text-end text-end2">
-                            <button class = "btn btn-outline-primary">Reply</button>
-                            <button class = "btn btn-outline-danger">Like</button>
-                        </div>
-                    </div>
-                </div>
+                {% for comment in event.comments %}
                 <div class = "card card2">
                     <div class ="card-body card-body2 p-4">
                         <div class = "d-flex flex-start w-100 align-items-center">
                             <img class = "avatar rounded-circle shadow-1-strong me-3 flex-shrink-0"
                                     src = "Ass3_skelton/website/static/images/user3.jpg" 
-                                    alt = "User3's Icon Image">
-                            <h6 class = "card-title card-title2 col flex-grow-1">@def456</h6>
+                                    alt = "User2's Icon Image">
+                            <h6 class = "card-title card-title2 col flex-grow-1">{{comment.user.name}}</h6>
                         </div>
-                        <p class = "card-text card-text2">
-                                Does anyone know if I cancell mt ticket,
-                                they refound the ticket fee?
-                        </p>
-                        <time class="card-subtitle card-subtitle2 mb-2 text-muted">9:13 am</time>
-                        <div class = "text-end text-end2">
-                            <button class = "btn btn-outline-primary">Reply</button>
-                            <button class = "btn btn-outline-danger">Like</button>
-                        </div>
+                        <p class = "card-text card-text2">{{comment.text}}</p>
+                        <time class="card-subtitle card-subtitle2 mb-2 text-muted">{{comment.created_at.strftime('%d/%m/%y %I:%M%p')}}</time>
                     </div>
                 </div>
+                <br>
+                {% endfor %}
+
+                
             </div>
         </section>
     </section>
 </main>
--->
+{% endblock %}

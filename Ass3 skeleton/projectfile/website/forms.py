@@ -78,7 +78,7 @@ class EventForm(FlaskForm):
 
 # Commenting, allows user to write comments to add and appear on the event pages
 class CommentForm(FlaskForm):
-    text = TextAreaField('Leave a Comment:', validators=[
+    text = TextAreaField('Add your comment:', validators=[
                          InputRequired(message="Your comment can't be blank"), check_field_length])
     submit = SubmitField('Submit')
 

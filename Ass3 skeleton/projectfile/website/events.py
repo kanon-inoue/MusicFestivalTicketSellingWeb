@@ -19,11 +19,11 @@ def show(id):
     booking_form = BookingForm()
     if booking_form.validate_on_submit():
         return redirect(url_for('main.index'))
-    artist_events = Event.query.filter_by(name=event.name).all()
-    return render_template('event/eventDetail.html', 
+    event_details = Event.query.filter_by(title=event.title).all()
+    return render_template('event/event_details.html', 
                 event=event, form=comments_form,
                 booking_form=booking_form, 
-                artist_events=artist_events)
+                event_details=event_details)
 
 @eventsbp.route('/view_all')
 def view_all_events():
@@ -153,23 +153,18 @@ def delete_event(id):
 @login_required
 def comment(id):
     form = CommentForm()
-    # get the Event object associated to the page and the comment
+    # get the Event object associated to the page
     event = Event.query.filter_by(id=id).first()
     if form.validate_on_submit():
-        # read the comment from the form
-        comment = Comment(text = form.text.data,
-                          event = event, 
-                          created_at = datetime.now(), 
-                          user_id = current_user.id)
-        #here the back-referencing works - comment.event is set and the link is created
+        # Create the Comment object using the form data
+        comment = Comment(text=form.text.data,
+                          event=event, created_at=datetime.now(), user_id=current_user.id)
         db.session.add(comment)
         db.session.commit()
-
         # flashing a message which needs to be handled by the html
-        #flash('Your comment has been added', 'success') 
-        print('Your comment has been added', 'success')
-    # using redirect sends a GET request to events.show
-    return redirect(url_for('events.show', id = id))
+        flash('Your comment has been added', 'primary')
+    # using redirect sends a GET request to destination.show
+    return redirect(url_for('events.show', id=id))
 
 @eventsbp.route('/<id>/book', methods=['GET', 'POST'])
 @login_required

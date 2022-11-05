@@ -1,0 +1,152 @@
+11186267 (12):
+      Add files via upload
+      Add files via upload
+      Delete bookingHistory.html
+      Delete eventCreation.html
+      Delete index.html
+      Delete eventDetail.html
+      Create image
+      Delete image
+      Add files via upload
+      Create -
+      Delete -
+      Add files via upload
+
+FocusedLoop (19):
+      Update views.py
+      Merge branch 'main' of https://github.com/FocusedLoop/IAB207_Assessment_2
+      yes
+      Updates to views and init
+      comments on code
+      added comments
+      edits to events
+      edits to events
+      Merge branches 'main' and 'main' of https://github.com/FocusedLoop/IAB207_Assessment_2
+      models changes
+      model edits
+      added comments to own code
+      edits to form
+      fixed models
+      edits to model
+      edits to models
+      finished up database and tables
+      Merge branch 'main' of https://github.com/FocusedLoop/IAB207_Assessment_2
+      edits to views and events
+
+GAGAN_SRAN (2):
+      added models.py
+      yf
+
+JinerQi777 (31):
+      Add files via upload
+      Update user.html
+      Update views.py
+      Update register/login from
+      Update base.html
+      Update auth.py
+      added requirements
+      test
+      Update auth.py
+      register/login form
+      user.html
+      add comments on register/login form
+      add comment on auth.py
+      comments on user.html
+      add editEventForm
+      update event front end
+      create event template
+      update
+      update
+      update
+      update, need fix more
+      link login/register button
+      update
+      change button to <a>
+      update
+      Merge branch 'main' of https://github.com/FocusedLoop/IAB207_Assessment_2
+      update
+      update
+      update
+      update
+      update
+
+Kanon Inoue (78):
+      yes
+      yes
+      yes
+      yes
+      yes
+      yes
+      yes
+      yes
+      yes
+      yes
+      yes
+      yes
+      yes
+      yes
+      yes
+      yes
+      yes
+      yes
+      yes
+      yes
+      yes
+      yes
+      yes
+      yes
+      yes
+      fixing errors
+      adding 404.html
+      fixing errors
+      fixing errors
+      fixing errors
+      fixing errors
+      fixing errors
+      fixing errors
+      fixing errors
+      .
+      event to events
+      editing html
+      editing html
+      deleting login and register html files
+      1
+      to access the localhost
+      edting html
+      editing html
+      html
+      html
+      html
+      html
+      pics
+      pics
+      html
+      html
+      html
+      html
+      edit
+      html
+      html
+      images
+      html
+      html
+      k
+      html
+      edit
+      edit
+      css
+      html
+      css
+      css
+      css
+      css
+      html
+      html
+      html
+      login/register
+      html
+      html
+      event creation
+      html
+      Merge branch 'main' of https://github.com/FocusedLoop/IAB207_Assessment_2
+

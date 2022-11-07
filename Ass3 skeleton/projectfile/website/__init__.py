@@ -5,6 +5,7 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager, current_user
 from datetime import datetime
 from werkzeug.exceptions import HTTPException
+import os
 
 db = SQLAlchemy()
 #app = Flask(__name__) # this is the name of the module/package that is calling this app
@@ -19,7 +20,7 @@ def create_app():
     # a secret key for the session object
     app.secret_key = 'abcde'
     # configue and initialise DB
-    app.config['SQLALCHEMY_DATABASE_URI']='sqlite:///music_events.sqlite'
+    app.config['SQLALCHEMY_DATABASE_URI']=os.environ['sqlite:///music_events.sqlite']
     app.config['UPLOAD_FOLDER'] = 'static/images/'
     #initialize db with flask app
     db.init_app(app)

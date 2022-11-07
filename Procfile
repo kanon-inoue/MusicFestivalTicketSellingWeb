@@ -1,1 +1,1 @@
-web: gunicorn music-event-app-group-6.wsgi --log-file -
+web: gunicorn -w 2 'website:create_app()'
